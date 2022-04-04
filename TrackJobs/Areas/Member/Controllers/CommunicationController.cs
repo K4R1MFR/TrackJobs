@@ -178,7 +178,7 @@ namespace TrackJobs.Areas.Member.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                return RedirectToAction("Index", "Communication", new { id = m.JobOfferId, title = jobOffer.JobTitle });
+                return RedirectToAction("Index", "Communication", new { id = m.JobOfferId, title = jobOffer.OfferTitle });
             }
 
             return View(m);

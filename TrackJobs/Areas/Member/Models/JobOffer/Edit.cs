@@ -6,7 +6,7 @@
         public string? UserId { get; set; }
         public DateTime? AppliedOn { get; set; }
         public string CompanyName { get; set; } = null!;
-        public string JobTitle { get; set; } = null!;
+        public string OfferTitle { get; set; } = null!;
         public int SourceId { get; set; }
         public string? LinkToOffer { get; set; }
         public bool HasSentResume { get; set; }

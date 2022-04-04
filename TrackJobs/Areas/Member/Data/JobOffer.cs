@@ -9,7 +9,7 @@ namespace TrackJobs.Areas.Member.Data
         public DateTime? AppliedOn { get; set; }
         public string CompanyName { get; set; } = null!;
         //public string? CompanyLogo { get; set; }
-        public string JobTitle { get; set; } = null!;
+        public string OfferTitle { get; set; } = null!;
         public string? Description { get; set; }
         public int SourceId { get; set; }
         public Source Source { get; set; } = null!;

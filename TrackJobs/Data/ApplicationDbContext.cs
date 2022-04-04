@@ -11,9 +11,9 @@ namespace TrackJobs.Data
         {
         }
 
-        public DbSet<JobOffer> JobOffers { get; set; }
-        public DbSet<Source> Sources { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<Communication> Communications { get; set; }
+        public DbSet<JobOffer>? JobOffers { get; set; }
+        public DbSet<Source>? Sources { get; set; }
+        public DbSet<Contact>? Contacts { get; set; }
+        public DbSet<Communication>? Communications { get; set; }
     }
 }
