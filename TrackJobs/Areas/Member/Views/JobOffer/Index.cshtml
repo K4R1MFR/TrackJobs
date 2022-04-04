@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TrackJobs.Areas.Member.Data.JobOffer>
+
+@{
+    ViewData["Title"] = "My Job Offers List";
+}
+
+<h1>My Job Offers List</h1>
+
+<p>
+    <a asp-action="Create">Create New Job Offer</a> | <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date Applied
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Source
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppliedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
