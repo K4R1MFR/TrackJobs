@@ -24,7 +24,12 @@
             {
                 <div class="col-md-3">
                     <div class="card">
-                        <div class="card-header">@{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; } <i class="bi @favorite"></i> @offer.CompanyName</div>
+                        <div class="card-header">
+                            <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.Id" style="text-decoration: none;">
+                                @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; } <i class="bi @favorite"></i> 
+                            </a>
+                            @offer.CompanyName
+                        </div>
                         <div class="card-body">
                             <div class="card-title">@offer.OfferTitle</div>
                             <div class="card-subtitle">offer id: @offer.Id</div>

@@ -267,5 +267,22 @@ namespace TrackJobs.Areas.Member.Controllers
         {
             return _context.JobOffers.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> ChangeFavorite(int id)
+        {
+            var jobOffer = _context.JobOffers.Where(j => j.Id == id).FirstOrDefault();
+
+            if(jobOffer.IsFavorite == false)
+            {
+                jobOffer.IsFavorite = true;
+            } else
+            {
+                jobOffer.IsFavorite = false;
+            }
+            _context.Update(jobOffer);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
