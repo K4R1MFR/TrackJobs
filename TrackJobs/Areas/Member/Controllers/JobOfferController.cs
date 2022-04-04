@@ -91,7 +91,7 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId, AppliedOn, CompanyName, JobTitle, SourceId, LinkToOffer, " +
+        public async Task<IActionResult> Create([Bind("UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
             "HasSentResume, HasSentCoverLetter, Salary, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Create m)
         {
@@ -175,7 +175,7 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, UserId, AppliedOn, CompanyName, JobTitle, SourceId, LinkToOffer, " +
+        public async Task<IActionResult> Edit(int id, [Bind("Id, UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
             "HasSentResume, HasSentCoverLetter, Salary, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Edit m)
         {

@@ -174,7 +174,15 @@ namespace TrackJobs.Areas.Member.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Contact", new { id = contact.JobOfferId, title = contact.Title });
+
+                var jobOffer = _context.JobOffers.Where(j => j.Id == m.JobOfferId).FirstOrDefault();
+
+                if (jobOffer is null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("Index", "Contact", new { id = jobOffer.Id, title = jobOffer.OfferTitle });
             }
 
             return View(m);
