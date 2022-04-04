@@ -22,9 +22,21 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: Member/Communication
-        public async Task<IActionResult> Index()
+        // id here is JobOfferId, title is JobOffer JobTitle
+        public async Task<IActionResult> Index(int? id, string title)
         {
-            var applicationDbContext = _context.Communications.Include(c => c.JobOffer);
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.jobOfferId = id.Value;
+            ViewBag.jobTitle = title;
+
+            var applicationDbContext = _context.Communications
+                .Include(c => c.JobOffer)
+                .Where(c => c.JobOfferId == id);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,12 +61,17 @@ namespace TrackJobs.Areas.Member.Controllers
 
         // GET: Member/Communication/Create
         // id here is JobOfferId
-        public IActionResult Create(int id)
+        public IActionResult Create(int? id)
         {
+            if(id is null)
+            {
+                return NotFound();
+            }
+
             var m = new Models.Communication.Create
             {
-                JobOfferId = id,
-                Date = DateTime.Parse(DateTime.Now.ToString("MM/dd/yyyy HH:mm"))
+                JobOfferId = id.Value,
+                Date = DateTime.Parse(DateTime.Now.ToString("f"))
             };
 
             return View(m);
@@ -80,7 +97,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
                 _context.Add(communication);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
 
             return View(m);
@@ -99,8 +116,18 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
-            ViewData["JobOfferId"] = new SelectList(_context.JobOffers, "Id", "Id", communication.JobOfferId);
-            return View(communication);
+
+            var m = new Models.Communication.Edit
+            {
+                Id = communication.Id,
+                JobOfferId = communication.JobOfferId,
+                Date = communication.Date,
+                CommunicationType = communication.CommunicationType,
+                Title = communication.Title,
+                Description = communication.Description
+            };
+
+            return View(m);
         }
 
         // POST: Member/Communication/Edit/5
@@ -108,9 +135,9 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,JobOfferId,Date,CommunicationType,Title,Description")] Communication communication)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,JobOfferId,Date,CommunicationType,Title,Description")] Models.Communication.Edit m)
         {
-            if (id != communication.Id)
+            if (id != m.Id)
             {
                 return NotFound();
             }
@@ -119,12 +146,23 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 try
                 {
+                    var communication = new Communication
+                    {
+                        Id = m.Id,
+                        JobOfferId = m.JobOfferId,
+                        Date = m.Date,
+                        CommunicationType = m.CommunicationType,
+                        Title = m.Title,
+                        Description = m.Description
+
+                    };
+
                     _context.Update(communication);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CommunicationExists(communication.Id))
+                    if (!CommunicationExists(m.Id))
                     {
                         return NotFound();
                     }
@@ -133,10 +171,17 @@ namespace TrackJobs.Areas.Member.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                var jobOffer = _context.JobOffers.Where(j => j.Id == m.JobOfferId).FirstOrDefault();
+
+                if(jobOffer is null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return RedirectToAction("Index", "Communication", new { id = m.JobOfferId, title = jobOffer.JobTitle });
             }
-            ViewData["JobOfferId"] = new SelectList(_context.JobOffers, "Id", "Id", communication.JobOfferId);
-            return View(communication);
+
+            return View(m);
         }
 
         // GET: Member/Communication/Delete/5
@@ -166,7 +211,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var communication = await _context.Communications.FindAsync(id);
             _context.Communications.Remove(communication);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool CommunicationExists(int id)

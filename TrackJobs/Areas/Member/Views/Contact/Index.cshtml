@@ -4,19 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Contact List for Job @ViewBag.jobTitle</h1>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List My Job Offers</a> |
+    <a asp-action="Create" as-route-id=@ViewBag.jobOfferId >Create New Contact</a>
+
+</div>
+
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.JobOffer)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Last Name
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -25,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                Phone Number
             </th>
             <th></th>
         </tr>
@@ -33,9 +36,6 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobOffer.Id)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>

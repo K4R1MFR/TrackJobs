@@ -22,9 +22,20 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: Member/Contact
-        public async Task<IActionResult> Index()
+        // id here is JobOfferId, title is JobOffer JobTitle
+        public async Task<IActionResult> Index(int? id, string title)
         {
-            var applicationDbContext = _context.Contacts.Include(c => c.JobOffer);
+            if (id is null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.jobTitle = title;
+
+            var applicationDbContext = _context.Contacts
+                .Include(c => c.JobOffer)
+                .Where(c => c.JobOfferId == id);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,12 +60,19 @@ namespace TrackJobs.Areas.Member.Controllers
 
         // GET: Member/Contact/Create
         // id here is JobOfferId
-        public IActionResult Create(int id)
+        public IActionResult Create(int? id)
         {
+            if (id is null)
+            {
+                return NotFound();
+            }
+
             var m = new Models.Contact.Create
             {
-                JobOfferId = id
+                JobOfferId = id.Value
             };
+
+            ViewBag.jobOfferId = id.Value;
 
             return View(m);
         }
@@ -156,7 +174,7 @@ namespace TrackJobs.Areas.Member.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Contact", new { id = contact.JobOfferId, title = contact.Title });
             }
 
             return View(m);
@@ -189,7 +207,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var contact = await _context.Contacts.FindAsync(id);
             _context.Contacts.Remove(contact);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         private bool ContactExists(int id)

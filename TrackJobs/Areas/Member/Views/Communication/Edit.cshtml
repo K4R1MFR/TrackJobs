@@ -1,5 +1,4 @@
-﻿@model TrackJobs.Areas.Member.Data.Communication
-
+﻿@model TrackJobs.Areas.Member.Models.Communication.Edit
 @{
     ViewData["Title"] = "Edit";
 }
@@ -13,19 +12,19 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="JobOfferId" class="control-label"></label>
-                <select asp-for="JobOfferId" class="form-control" asp-items="ViewBag.JobOfferId"></select>
-                <span asp-validation-for="JobOfferId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="JobOfferId" />
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CommunicationType" class="control-label"></label>
-                <input asp-for="CommunicationType" class="form-control" />
+                <label asp-for="CommunicationType" class="control-label">Communication Type</label>
+                <select asp-for="CommunicationType" class="form-control" data-val-required="The Communication Type is required.">
+                    <option value="">Select a type</option>
+                    <option value="sent">Sent</option>
+                    <option value="received">Received</option>
+                </select>
                 <span asp-validation-for="CommunicationType" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -35,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" ></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -46,7 +45,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="javascript: history.go(-1)">Go Back</a>
 </div>
 
 @section Scripts {
