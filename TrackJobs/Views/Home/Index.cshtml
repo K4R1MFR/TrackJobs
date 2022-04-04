@@ -4,4 +4,8 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to TrackJobs</h1>
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <a asp-area="Identity" asp-controller="Account" asp-action="Login"><p>login to access application</p></a>
+    }
 </div>
