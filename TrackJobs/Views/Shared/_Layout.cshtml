@@ -27,10 +27,14 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Member" asp-controller="Home" asp-action="Index">My Job Offers (logged in)</a>
                             </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Source" asp-action="Index">Sources (a changer pour Admin seulement)</a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Source" asp-action="Index">Manage Sources (Admin Only)</a>
                             </li>
                         }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
