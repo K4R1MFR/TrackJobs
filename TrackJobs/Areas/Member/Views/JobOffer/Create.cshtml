@@ -108,7 +108,7 @@
 
                 <div id="AppliedOn" class="form-group" style="display:none">
                     <label asp-for="AppliedOn" class="control-label">Applied On</label>
-                    <input asp-for="AppliedOn" class="form-control" />
+                    <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled="false"/>
                     <span asp-validation-for="AppliedOn" class="text-danger"></span>
                 </div>
                 <div id="HasSentResumne" class="form-group form-check" style="display:none">
@@ -143,8 +143,13 @@
 <script>
 function toggleAlreadyApplied() {
     var check = document.getElementById("hasApplied").checked;
-    console.log(check);
+
     document.getElementById("AppliedOn").style.display = check === true ? "block" : "none";
+    //disables DateTime AppliedOn input if checkbox isn't checked
+    check === true ? 
+    document.getElementById("AppliedOnInput").disabled = false : 
+    document.getElementById("AppliedOnInput").disabled = true;
+
     document.getElementById("HasSentResumne").style.display = check === true ? "block" : "none";
     document.getElementById("HasSentCoverLetter").style.display = check === true ? "block" : "none";
 }

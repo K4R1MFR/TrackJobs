@@ -1,4 +1,4 @@
-﻿namespace TrackJobs.Areas.Member.Data
+﻿namespace TrackJobs.Areas.Admin.Data
 {
     public class Source
     {

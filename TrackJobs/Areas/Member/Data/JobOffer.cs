@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using TrackJobs.Areas.Admin.Data;
 
 namespace TrackJobs.Areas.Member.Data
 {

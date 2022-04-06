@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TrackJobs.Areas.Admin.Data;
 using TrackJobs.Areas.Member.Data;
 
 namespace TrackJobs.Data
