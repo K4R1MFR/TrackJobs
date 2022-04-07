@@ -3,13 +3,16 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+@*    <h1 class="display-4">Welcome</h1>
     <p>name: @ViewBag.user.UserName</p>
-    <a asp-controller="JobOffer" asp-action="Create" class="btn btn-dark">Add New Offer</a>
+*@@*    <a asp-controller="JobOffer" asp-action="Create" class="btn btn-dark">Add New Offer</a>
+*@    
+    <h1>My Offers</h1>
+
+    <input type="button" value="Add New" class="btn" style="background-color: #304D6D; color: #a7cced;" />
 
     <hr/>
 
-    <h3>My Offers</h3>
 
 
     @if(ViewBag.jobOffers.Count == 0)
@@ -25,27 +28,35 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">
+                            <h5>
                             <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.Id" style="text-decoration: none;">
                               @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
                             </a>
-                            @offer.CompanyName
+                                @offer.CompanyName 
+                                </h5>
+                            <div >
+                            <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" onclick="toggleExtraMenu(@offer.Id)"></i>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="card-title" onclick="ChangeFavorite(@offer.Id)">@offer.OfferTitle</div>
+                        
+                        <div id="@offer.Id" class="card-body">
+                            <div class="card-title">@offer.OfferTitle</div>
                             <div class="card-subtitle">offer id: @offer.Id</div>
-                            <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-primary">Edit</a> |
-                            <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.Id" class="btn btn-primary">Details</a> |
+                            <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-secondary">Edit</a> |
+                            <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.Id" class="btn btn-secondary">Details</a> |
                             <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger">Delete</a>
+                                
+                            <div class="extra-info" style="display: none;">
                             <hr />
+                                <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
+                                <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
+                                <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Contact</a>
+                                <hr />
 
-                            <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
-                            <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
-                            <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-info">Add Contact</a>
-                            <hr />
-
-                            <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
-                            <p>@{ var communication = offer.Communications.Count < 2 ? "Communication" : "Communications"; } @communication: @offer.Communications.Count</p>
-                            <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Communication</a>
+                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
+                                <p>@{ var communication = offer.Communications.Count < 2 ? "Communication" : "Communications"; } @communication: @offer.Communications.Count</p>
+                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Communication</a>
+                            </div>
                         </div>
                         <div class="card-footer text-muted">source: @offer.Source.Name</div>
                     </div>
@@ -56,3 +67,16 @@
     }
 
 </div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function toggleExtraMenu(id) {
+        //alert(`id: ${id}`);
+        var display = $(`#${id} .extra-info`).css("display");
+
+        display == "block" ? 
+            $(`#${id} .extra-info`).css({"display":"none"}) : 
+            $(`#${id} .extra-info`).css({"display":"block"});
+
+    }
+</script>

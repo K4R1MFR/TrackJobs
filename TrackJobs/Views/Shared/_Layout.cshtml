@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TrackJobs.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="Member" asp-controller="Home" asp-action="Index">TrackJobs</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -25,7 +26,7 @@
                         @if (User.IsInRole("Member") || User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Member" asp-controller="Home" asp-action="Index">My Job Offers (logged in)</a>
+                                <a class="nav-link text-dark" asp-area="Member" asp-controller="Home" asp-action="Index">My Job Offers</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
@@ -47,7 +48,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer fixed-bottom text-muted">
         <div class="container">
             &copy; 2022 - TrackJobs - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
