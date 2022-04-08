@@ -6,83 +6,106 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>JobOffer</h4>
+ <div>
+    <h3>@Model.CompanyName</h3>
+    <h4>
+        @{var favorite = @Model.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
+        @Model.OfferTitle
+    </h4>
     <hr />
-    <label>General</label>
-    <dl class="row">
-       <dt class = "col-sm-2">
-            Company Name
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompanyName)
-        </dd>
-        <dt class = "col-sm-2">
-            Offer Title
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OfferTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Source)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Source.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            Link to Offer
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LinkToOffer)
-        </dd>
-        <dt class = "col-sm-2">
-            Is Favorite
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsFavorite)
-        </dd>
+    <div class="row">
+        <div class="col-md-4">
+        <h5>General</h5>
+            <dl class="col-lg-12">
+                    <dt class = "col-sm-4">
+                        @Html.DisplayNameFor(model => model.Salary)
+                    </dt>
+                    <dd class = "col-sm-8">
+                        @Html.DisplayFor(model => model.Salary)
+                    </dd>
+                    <dt class = "col-sm-4">
+                        @Html.DisplayNameFor(model => model.Source)
+                    </dt>
+                    <dd class = "col-sm-8">
+                        @Html.DisplayFor(model => model.Source.Name)
+                    </dd>
+                    <dt class = "col-sm-4">
+                        Link to Offer
+                    </dt>
+                    <dd class = "col-sm-8">
+                        <a href="@Html.DisplayFor(model => model.LinkToOffer)" target="_blank">@Html.DisplayFor(model => model.LinkToOffer)</a>
+                    </dd>
+                    <dt class = "col-sm-4">
+                        Sent Resume
+                    </dt>
+                    <dd class = "col-sm-8">
+                        @Html.DisplayFor(model => model.HasSentResume)
+                    </dd>
+                    <dt class = "col-sm-4">
+                        Sent Cover Letter
+                    </dt>
+                    <dd class = "col-sm-8">
+                        @Html.DisplayFor(model => model.HasSentCoverLetter)
+                    </dd>
 
-    </dl>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HasSentResume)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HasSentResume)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HasSentCoverLetter)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HasSentCoverLetter)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InterviewDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InterviewDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HasInterviewed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HasInterviewed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppliedOn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AppliedOn)
-        </dd>
 
-    </dl>
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+    <label></label>
+            <dl class="col-lg-12">
+                <dt class = "col-sm-4">
+                    Applied On
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.AppliedOn)
+                </dd>
+                <dt class = "col-sm-4">
+                    Interviewed
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.HasInterviewed)
+                </dd>
+                <dt class = "col-sm-4">
+                    Interview Date
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.InterviewDate)
+                </dd>
+
+
+            </dl>
+        </div>
+
+        <div class="col-md-4">
+        <h5>Optional</h5>
+            <dl class="col-lg-12">
+                <dt class = "col-sm-4">
+                    Perks
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Perks)
+                </dd>
+                <dt class = "col-sm-4">
+                    Pros
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Pros)
+                </dd>
+                <dt class = "col-sm-4">
+                    Cons
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Cons)
+                </dd>
+            </dl>
+        </div>
+
+
+    </div>
 </div>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>

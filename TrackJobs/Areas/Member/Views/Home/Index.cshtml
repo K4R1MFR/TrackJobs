@@ -8,9 +8,9 @@
 *@@*    <a asp-controller="JobOffer" asp-action="Create" class="btn btn-dark">Add New Offer</a>
 *@    
     <h1>My Offers</h1>
-
-    <input type="button" value="Add New" class="btn" style="background-color: #304D6D; color: #a7cced;" />
-
+    <a asp-controller="JobOffer" asp-action="Create">
+        <input type="button" value="Add New" class="btn" onclick="/JobOffer/Create" style="background-color: #304D6D; color: #a7cced;" />
+    </a>
     <hr/>
 
 
@@ -40,8 +40,7 @@
                         </div>
                         
                         <div id="@offer.Id" class="card-body">
-                            <div class="card-title">@offer.OfferTitle</div>
-                            <div class="card-subtitle">offer id: @offer.Id</div>
+                            <div class="card-title"><strong>@offer.OfferTitle</strong></div>
                             <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-secondary">Edit</a> |
                             <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.Id" class="btn btn-secondary">Details</a> |
                             <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger">Delete</a>
@@ -58,7 +57,7 @@
                                 <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Communication</a>
                             </div>
                         </div>
-                        <div class="card-footer text-muted">source: @offer.Source.Name</div>
+                        <div class="card-footer">source: @offer.Source.Name</div>
                     </div>
                 </div>
 

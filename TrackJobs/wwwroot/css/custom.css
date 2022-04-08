@@ -19,7 +19,9 @@ input[type=button], button[type=submit] {
 input[type=text], input[type=text]:focus, input[type=email], input[type=email]:focus,
 input[type=password], input[type=password]:focus, input[type=checkbox], input[type=checkbox]:focus,
 textarea, textarea:focus, input[type=number], input[type=number]:focus,
-input[type=datetime], input[type=datetime]:focus, select, select:focus {
+input[type=datetime], input[type=datetime]:focus,
+input[type=datetime-local], input[type=datetime-local]:focus,
+select, select:focus {
     background-color: #304D6D !important;
     color: #A7CCED !important;
     border-color: #A7CCED !important;
