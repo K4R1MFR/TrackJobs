@@ -23,7 +23,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
         // GET: Member/Communication
         // id here is JobOfferId, title is JobOffer JobTitle
-        public async Task<IActionResult> Index(int? id, string title)
+        public async Task<IActionResult> Index(Guid? id, string title)
         {
             if (id is null)
             {
@@ -61,7 +61,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
         // GET: Member/Communication/Create
         // id here is JobOfferId
-        public IActionResult Create(int? id)
+        public IActionResult Create(Guid? id)
         {
             if(id is null)
             {
@@ -171,7 +171,7 @@ namespace TrackJobs.Areas.Member.Controllers
                         throw;
                     }
                 }
-                var jobOffer = _context.JobOffers.Where(j => j.Id == m.JobOfferId).FirstOrDefault();
+                var jobOffer = _context.JobOffers.Where(j => j.GuId == m.JobOfferId).FirstOrDefault();
 
                 if(jobOffer is null)
                 {

@@ -2,7 +2,7 @@
 {
     public class Edit
     {
-        public int Id { get; set; }
+        public Guid GuId { get; set; }
         public string? UserId { get; set; }
         public DateTime? AppliedOn { get; set; }
         public string CompanyName { get; set; } = null!;

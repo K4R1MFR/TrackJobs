@@ -29,32 +29,32 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>
-                            <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.Id" style="text-decoration: none;">
+                            <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.GuId" style="text-decoration: none;">
                               @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
                             </a>
                                 @offer.CompanyName 
                                 </h5>
                             <div >
-                            <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" onclick="toggleExtraMenu(@offer.Id)"></i>
+                            <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" onclick="toggleExtraMenu(@offer.GuId)"></i>
                             </div>
                         </div>
                         
-                        <div id="@offer.Id" class="card-body">
+                        <div id="@offer.GuId" class="card-body">
                             <div class="card-title"><strong>@offer.OfferTitle</strong></div>
-                            <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.Id" class="btn btn-secondary">Edit</a> |
-                            <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.Id" class="btn btn-secondary">Details</a> |
-                            <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.Id" class="btn btn-danger">Delete</a>
+                            <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.GuId" class="btn btn-secondary">Edit</a> |
+                            <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.GuId" class="btn btn-secondary">Details</a> |
+                            <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.GuId" class="btn btn-danger">Delete</a>
                                 
                             <div class="extra-info" style="display: none;">
                             <hr />
-                                <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
+                                <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
                                 <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
-                                <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Contact</a>
+                                <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-secondary">Add Contact</a>
                                 <hr />
 
-                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.Id" asp-route-title="@offer.OfferTitle">See All</a>
+                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
                                 <p>@{ var communication = offer.Communications.Count < 2 ? "Communication" : "Communications"; } @communication: @offer.Communications.Count</p>
-                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.Id" class="btn btn-secondary">Add Communication</a>
+                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-secondary">Add Communication</a>
                             </div>
                         </div>
                         <div class="card-footer">source: @offer.Source.Name</div>

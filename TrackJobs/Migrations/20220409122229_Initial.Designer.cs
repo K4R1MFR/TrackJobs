@@ -9,11 +9,11 @@ using TrackJobs.Data;
 
 #nullable disable
 
-namespace TrackJobs.Data.Migrations
+namespace TrackJobs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220330224920_UpdateJobOfferEntity4")]
-    partial class UpdateJobOfferEntity4
+    [Migration("20220409122229_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,7 +226,27 @@ namespace TrackJobs.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.Communication", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Admin.Data.Source", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sources");
+                });
+
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.Communication", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -244,8 +264,8 @@ namespace TrackJobs.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobOfferId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("JobOfferId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -258,7 +278,7 @@ namespace TrackJobs.Data.Migrations
                     b.ToTable("Communications");
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.Contact", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.Contact", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,18 +293,16 @@ namespace TrackJobs.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("JobOfferId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("JobOfferId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -294,13 +312,11 @@ namespace TrackJobs.Data.Migrations
                     b.ToTable("Contacts");
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.JobOffer", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.JobOffer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("GuId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("AppliedOn")
                         .HasColumnType("datetime2");
@@ -308,11 +324,14 @@ namespace TrackJobs.Data.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CompanyLogo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CompanyName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cons")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HasInterviewed")
@@ -339,15 +358,21 @@ namespace TrackJobs.Data.Migrations
                     b.Property<bool>("IsSoftDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("JobTitle")
+                    b.Property<string>("LinkToOffer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OfferTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LinkToOffer")
+                    b.Property<string>("Perks")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Postcode")
                         .HasColumnType("int");
+
+                    b.Property<string>("Pros")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RejectionFeedback")
                         .HasColumnType("nvarchar(max)");
@@ -367,31 +392,15 @@ namespace TrackJobs.Data.Migrations
                     b.Property<string>("StreetNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GuId");
 
                     b.HasIndex("SourceId");
 
                     b.ToTable("JobOffers");
-                });
-
-            modelBuilder.Entity("TrackJobs.Data.Source", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Logo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sources");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -445,9 +454,9 @@ namespace TrackJobs.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.Communication", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.Communication", b =>
                 {
-                    b.HasOne("TrackJobs.Data.JobOffer", "JobOffer")
+                    b.HasOne("TrackJobs.Areas.Member.Data.JobOffer", "JobOffer")
                         .WithMany("Communications")
                         .HasForeignKey("JobOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -456,10 +465,10 @@ namespace TrackJobs.Data.Migrations
                     b.Navigation("JobOffer");
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.Contact", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.Contact", b =>
                 {
-                    b.HasOne("TrackJobs.Data.JobOffer", "JobOffer")
-                        .WithMany("Contact")
+                    b.HasOne("TrackJobs.Areas.Member.Data.JobOffer", "JobOffer")
+                        .WithMany("Contacts")
                         .HasForeignKey("JobOfferId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -467,9 +476,9 @@ namespace TrackJobs.Data.Migrations
                     b.Navigation("JobOffer");
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.JobOffer", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.JobOffer", b =>
                 {
-                    b.HasOne("TrackJobs.Data.Source", "Source")
+                    b.HasOne("TrackJobs.Areas.Admin.Data.Source", "Source")
                         .WithMany()
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -478,11 +487,11 @@ namespace TrackJobs.Data.Migrations
                     b.Navigation("Source");
                 });
 
-            modelBuilder.Entity("TrackJobs.Data.JobOffer", b =>
+            modelBuilder.Entity("TrackJobs.Areas.Member.Data.JobOffer", b =>
                 {
                     b.Navigation("Communications");
 
-                    b.Navigation("Contact");
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

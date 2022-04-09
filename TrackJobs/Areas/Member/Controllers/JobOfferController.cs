@@ -46,7 +46,7 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: JobOffer/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
             {
@@ -55,7 +55,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Source)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.GuId == id);
             if (jobOffer == null)
             {
                 return NotFound();
@@ -143,7 +143,7 @@ namespace TrackJobs.Areas.Member.Controllers
             }
             var m = new Models.JobOffer.Edit
             {
-                Id = jobOffer.Id,
+                GuId = jobOffer.GuId,
                 UserId = jobOffer.UserId,
                 AppliedOn = jobOffer.AppliedOn,
                 CompanyName = jobOffer.CompanyName,
@@ -175,11 +175,11 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id, UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
+        public async Task<IActionResult> Edit(Guid id, [Bind("GuId, UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
             "HasSentResume, HasSentCoverLetter, Salary, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Edit m)
         {
-            if (id != m.Id)
+            if (id != m.GuId)
             {
                 return NotFound();
             }
@@ -190,7 +190,7 @@ namespace TrackJobs.Areas.Member.Controllers
                 {
                     var editedJobOffer = new JobOffer
                     {
-                        Id = m.Id,
+                        GuId = m.GuId,
                         UserId = m.UserId,
                         AppliedOn = m.AppliedOn,
                         CompanyName = m.CompanyName,
@@ -217,7 +217,7 @@ namespace TrackJobs.Areas.Member.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobOfferExists(m.Id))
+                    if (!JobOfferExists(m.GuId))
                     {
                         return NotFound();
                     }
@@ -233,7 +233,7 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: JobOffer/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
             {
@@ -242,7 +242,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Source)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.GuId == id);
             if (jobOffer == null)
             {
                 return NotFound();
@@ -263,14 +263,14 @@ namespace TrackJobs.Areas.Member.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private bool JobOfferExists(int id)
+        private bool JobOfferExists(Guid id)
         {
-            return _context.JobOffers.Any(e => e.Id == id);
+            return _context.JobOffers.Any(e => e.GuId == id);
         }
 
-        public async Task<IActionResult> ChangeFavorite(int id)
+        public async Task<IActionResult> ChangeFavorite(Guid id)
         {
-            var jobOffer = _context.JobOffers.Where(j => j.Id == id).FirstOrDefault();
+            var jobOffer = _context.JobOffers.Where(j => j.GuId == id).FirstOrDefault();
 
             if(jobOffer.IsFavorite == false)
             {

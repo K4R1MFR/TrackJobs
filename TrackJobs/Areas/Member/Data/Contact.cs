@@ -5,7 +5,7 @@ namespace TrackJobs.Areas.Member.Data
     public class Contact
     {
         public int Id { get; set; }
-        public int JobOfferId { get; set; }
+        public Guid JobOfferId { get; set; }
         public JobOffer JobOffer { get; set; } = null!;
         public string FirstName { get; set; } = null!;
         public string? LastName { get; set; }

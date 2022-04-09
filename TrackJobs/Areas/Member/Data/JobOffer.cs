@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TrackJobs.Areas.Admin.Data;
 
 namespace TrackJobs.Areas.Member.Data
 {
     public class JobOffer
     {
-        public int Id { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid GuId { get; set; }
         public string UserId { get; set; } = null!;
         public DateTime? AppliedOn { get; set; }
         public string CompanyName { get; set; } = null!;
