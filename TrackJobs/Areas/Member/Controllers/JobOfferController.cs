@@ -129,7 +129,7 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: JobOffer/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
             {
@@ -254,7 +254,7 @@ namespace TrackJobs.Areas.Member.Controllers
         // POST: JobOffer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var jobOffer = await _context.JobOffers.FindAsync(id);
             jobOffer.IsSoftDeleted = true;

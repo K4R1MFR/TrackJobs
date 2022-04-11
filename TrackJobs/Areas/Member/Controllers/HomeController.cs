@@ -38,7 +38,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
             ViewBag.jobOffers = jobOffers;
 
-            return View();
+            return View(jobOffers);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<TrackJobs.Areas.Member.Data.JobOffer>
+@{
     ViewData["Title"] = "Member - Home Page";
 }
 
@@ -35,7 +36,7 @@
                                 @offer.CompanyName 
                                 </h5>
                             <div >
-                            <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" onclick="toggleExtraMenu(@offer.GuId)"></i>
+                            <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" id="@String.Concat("toggleButton", @offer.GuId)" ></i>
                             </div>
                         </div>
                         
@@ -69,13 +70,17 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script>
-    function toggleExtraMenu(id) {
-        //alert(`id: ${id}`);
-        var display = $(`#${id} .extra-info`).css("display");
+    $(() => {
+        $(".bi-menu-button-wide").click((event) => {
+            console.log(event.target.id.split('toggleButton')[1]);
+            var id = event.target.id.split('toggleButton')[1];
 
-        display == "block" ? 
-            $(`#${id} .extra-info`).css({"display":"none"}) : 
-            $(`#${id} .extra-info`).css({"display":"block"});
+            var display = $(`#${id} .extra-info`).css("display");
 
-    }
+            display == "block" ? 
+                $(`#${id} .extra-info`).css({"display":"none"}) : 
+                $(`#${id} .extra-info`).css({"display":"block"});
+
+        });
+    });
 </script>
