@@ -30,6 +30,7 @@ namespace TrackJobs.Areas.Member.Controllers
                 return NotFound();
             }
 
+            ViewBag.jobOfferId = id.Value;
             ViewBag.jobTitle = title;
 
             var applicationDbContext = _context.Contacts

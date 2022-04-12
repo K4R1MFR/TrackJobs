@@ -14,130 +14,129 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="UserId" />
             <div class="row">
-            <div class="col-md-4">
-                <label><strong>General</strong></label>
-                <div class="form-group">
-                    <label asp-for="CompanyName" class="control-label">Company Name</label>
-                    <input asp-for="CompanyName" class="form-control" data-val-required="The Company Name is required."/>
-                    <span asp-validation-for="CompanyName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="OfferTitle" class="control-label">Offer Title</label>
-                    <input asp-for="OfferTitle" class="form-control" data-val-required="The Job Title is required."/>
-                    <span asp-validation-for="OfferTitle" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Salary" class="control-label"></label>
-                    <input asp-for="Salary" class="form-control" />
-                    <span asp-validation-for="Salary" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="SourceId" class="control-label">Source</label>
-                    <select asp-for="SourceId" class ="form-control" asp-items="ViewBag.SourceId" required data-val-required="The Source is required.">
-                        <option value="">Select a Source</option>
-                    </select>
-                    <span asp-validation-for="SourceId" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="LinkToOffer" class="control-label">Link to Offer</label>
-                    <input asp-for="LinkToOffer" class="form-control" />
-                    <span asp-validation-for="LinkToOffer" class="text-danger"></span>
-                </div>
-                <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsFavorite" />Is Favorite
-                </label>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <label><strong>Address</strong></label>
-                <div class="form-group">
-                    <label asp-for="StreetNumber" class="control-label">Street Number</label>
-                    <input asp-for="StreetNumber" class="form-control" />
-                    <span asp-validation-for="StreetNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="StreetName" class="control-label">Street Name</label>
-                    <input asp-for="StreetName" class="form-control" />
-                    <span asp-validation-for="StreetName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="City" class="control-label">City</label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Postcode" class="control-label">Postcode</label>
-                    <input asp-for="Postcode" class="form-control" />
-                    <span asp-validation-for="Postcode" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="State" class="control-label">State</label>
-                    <select asp-for="State" class ="form-control" asp-items="ViewBag.State" >
-                        <option value="">Select a State</option>
-                        <option value="NSW">NSW</option>
-                        <option value="ACT">ACT</option>
-                        <option value="VIC">VIC</option>
-                        <option value="QLD">QLD</option>
-                        <option value="NT">NT</option>
-                        <option value="SA">SA</option>
-                        <option value="WA">WA</option>
-                        <option value="TAS">TAS</option>
-                    </select>
-                    <span asp-validation-for="State" class="text-danger"></span>
-                </div>
-            </div>
-
-
-            <div class="col-md-4">
-                <label><strong>Optional</strong></label>
-                <div class="form-group">
-                    <label asp-for="Perks" class="control-label">Perks</label>
-                    <textarea asp-for="Perks" class="form-control"></textarea>
-                    <span asp-validation-for="Perks" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Pros" class="control-label">Pros</label>
-                    <textarea asp-for="Pros" class="form-control"></textarea>
-                    <span asp-validation-for="Pros" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Cons" class="control-label">Cons</label>
-                    <textarea asp-for="Cons" class="form-control"></textarea>
-                    <span asp-validation-for="Cons" class="text-danger"></span>
-                </div>
-
-                <div>
-
-                    <label>
-                    <input type="checkbox" onclick="toggleAlreadyApplied()" id="hasApplied" /> already applied
-
-                    </label>
-                </div>
-
-                <div id="AppliedOn" class="form-group" style="display:none">
-                    <label asp-for="AppliedOn" class="control-label">Applied On</label>
-                    <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled=""/>
-                    <span asp-validation-for="AppliedOn" class="text-danger"></span>
-                </div>
-                <div id="HasSentResumne" class="form-group form-check" style="display:none">
+                <div class="col-md-4">
+                    <label><strong>General</strong></label>
+                    <div class="form-group">
+                        <label asp-for="CompanyName" class="control-label">Company Name</label>
+                        <input asp-for="CompanyName" class="form-control" data-val-required="The Company Name is required."/>
+                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OfferTitle" class="control-label">Offer Title</label>
+                        <input asp-for="OfferTitle" class="form-control" data-val-required="The Job Title is required."/>
+                        <span asp-validation-for="OfferTitle" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Salary" class="control-label"></label>
+                        <input asp-for="Salary" class="form-control" />
+                        <span asp-validation-for="Salary" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SourceId" class="control-label">Source</label>
+                        <select asp-for="SourceId" class ="form-control" asp-items="ViewBag.SourceId" required data-val-required="The Source is required.">
+                            <option value="">Select a Source</option>
+                        </select>
+                        <span asp-validation-for="SourceId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="LinkToOffer" class="control-label">Link to Offer</label>
+                        <input asp-for="LinkToOffer" class="form-control" />
+                        <span asp-validation-for="LinkToOffer" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
                     <label class="form-check-label">
-                    <input class="form-check-input" asp-for="HasSentResume" />Sent Resume
+                        <input class="form-check-input" asp-for="IsFavorite" />Is Favorite
                     </label>
+                    </div>
                 </div>
 
-                <div id="HasSentCoverLetter" class="form-group form-check" style="display:none">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="HasSentCoverLetter" />Sent Cover Letter
-                    </label>
+                <div class="col-md-4">
+                    <label><strong>Address</strong></label>
+                    <div class="form-group">
+                        <label asp-for="StreetNumber" class="control-label">Street Number</label>
+                        <input asp-for="StreetNumber" class="form-control" />
+                        <span asp-validation-for="StreetNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StreetName" class="control-label">Street Name</label>
+                        <input asp-for="StreetName" class="form-control" />
+                        <span asp-validation-for="StreetName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label">City</label>
+                        <input asp-for="City" class="form-control" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Postcode" class="control-label">Postcode</label>
+                        <input asp-for="Postcode" class="form-control" />
+                        <span asp-validation-for="Postcode" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="State" class="control-label">State</label>
+                        <select asp-for="State" class ="form-control" asp-items="ViewBag.State" >
+                            <option value="">Select a State</option>
+                            <option value="NSW">NSW</option>
+                            <option value="ACT">ACT</option>
+                            <option value="VIC">VIC</option>
+                            <option value="QLD">QLD</option>
+                            <option value="NT">NT</option>
+                            <option value="SA">SA</option>
+                            <option value="WA">WA</option>
+                            <option value="TAS">TAS</option>
+                        </select>
+                        <span asp-validation-for="State" class="text-danger"></span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <br />
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+                <div class="col-md-4">
+                    <label><strong>Optional</strong></label>
+                    <div class="form-group">
+                        <label asp-for="Perks" class="control-label">Perks</label>
+                        <textarea asp-for="Perks" class="form-control"></textarea>
+                        <span asp-validation-for="Perks" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Pros" class="control-label">Pros</label>
+                        <textarea asp-for="Pros" class="form-control"></textarea>
+                        <span asp-validation-for="Pros" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cons" class="control-label">Cons</label>
+                        <textarea asp-for="Cons" class="form-control"></textarea>
+                        <span asp-validation-for="Cons" class="text-danger"></span>
+                    </div>
+
+                    <div>
+
+                        <label>
+                        <input type="checkbox" onclick="toggleAlreadyApplied()" id="hasApplied" style="margin-top: 5px;" /> already applied
+
+                        </label>
+                    </div>
+
+                    <div id="AppliedOn" class="form-group" style="display:none">
+                        <label asp-for="AppliedOn" class="control-label">Applied On</label>
+                        <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled=""/>
+                        <span asp-validation-for="AppliedOn" class="text-danger"></span>
+                    </div>
+                    <div id="HasSentResumne" class="form-group form-check" style="display:none">
+                        <label class="form-check-label">
+                        <input class="form-check-input" asp-for="HasSentResume" />Sent Resume
+                        </label>
+                    </div>
+
+                    <div id="HasSentCoverLetter" class="form-group form-check" style="display:none">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="HasSentCoverLetter" />Sent Cover Letter
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" style="margin-top: 10px;" />
+                </div>
             </div>
         </form>
     </div>
