@@ -30,11 +30,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>
-                            <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.GuId" style="text-decoration: none;">
-                              @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
-                            </a>
+                                <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.GuId" style="text-decoration: none;">
+                                  @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
+                                </a>
                                 @offer.CompanyName 
-                                </h5>
+                            </h5>
                             <div >
                             <i style="font-size: 2rem; cursor: pointer;" class="bi bi-menu-button-wide" id="@String.Concat("toggleButton", @offer.GuId)" ></i>
                             </div>
@@ -48,17 +48,37 @@
                                 
                             <div class="extra-info" style="display: none;">
                             <hr />
+                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
+                                <p>@{ var communication = offer.Communications.Count < 2 ? "Activity" : "Activities"; } @communication: @offer.Communications.Count</p>
+                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-secondary">Add Activity</a>
+                                <hr />
                                 <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
                                 <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
                                 <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-secondary">Add Contact</a>
-                                <hr />
-
-                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
-                                <p>@{ var communication = offer.Communications.Count < 2 ? "Communication" : "Communications"; } @communication: @offer.Communications.Count</p>
-                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-secondary">Add Communication</a>
                             </div>
                         </div>
-                        <div class="card-footer">source: @offer.Source.Name</div>
+                        <div class="card-footer">
+                            source: @offer.Source.Name
+                            <div>
+                                @{
+                                    if (offer.AppliedOn != null)
+                                    {
+                                        <span>applied:</span> @offer.AppliedOn?.ToString("dd MMMM yyyy")
+                                    } else
+                                    {
+                                        <span>not applied yet</span>;
+                                    }
+                                }
+                            </div>
+                            <div>
+                                @{
+                                    if(offer.Communications.Count > 0)
+                                    {
+                                        <span>last activity:</span> @offer.Communications[offer.Communications.Count - 1].Date.ToString("dd MMMM yyyy")
+                                    }
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
 

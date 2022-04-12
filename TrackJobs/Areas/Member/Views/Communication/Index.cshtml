@@ -4,11 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Communication List for Job @ViewBag.jobTitle</h1>
+<h1>Activity List for Job @ViewBag.jobTitle</h1>
 
 <p>
     <a asp-controller="Home" asp-action="Index">Back to List My Job Offers</a> |
-    <a asp-action="Create" asp-route-id=@ViewBag.jobOfferId >Create New Communication</a>
+    <a asp-action="Create" asp-route-id=@ViewBag.jobOfferId >Create New Activity</a>
 </p>
 <table class="table">
     <thead>
@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                Communication Type
+                Activity Type
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
