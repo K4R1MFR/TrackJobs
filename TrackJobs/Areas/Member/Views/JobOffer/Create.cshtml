@@ -45,7 +45,12 @@
                     </div>
                     <div class="form-group form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" asp-for="IsFavorite" />Is Favorite
+                        <input class="form-check-input" asp-for="IsWFHAvailable" />WFH Available
+                    </label>
+                    </div>
+                    <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="IsFavorite" />Favorite
                     </label>
                     </div>
                 </div>
@@ -92,6 +97,26 @@
 
                 <div class="col-md-4">
                     <label><strong>Optional</strong></label>
+                    <div>
+                        <label>
+                        <input type="checkbox" onclick="toggleAlreadyApplied()" id="hasApplied" style="margin-top: 5px;" /> already applied
+                        </label>
+                    </div>
+                    <div id="AppliedOn" class="form-group" style="display:none">
+                        <label asp-for="AppliedOn" class="control-label">Applied On</label>
+                        <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled=""/>
+                        <span asp-validation-for="AppliedOn" class="text-danger"></span>
+                    </div>
+                    <div id="HasSentResumne" class="form-group form-check" style="display:none">
+                        <label class="form-check-label">
+                        <input class="form-check-input" asp-for="HasSentResume" />Sent Resume
+                        </label>
+                    </div>
+                    <div id="HasSentCoverLetter" class="form-group form-check" style="display:none">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="HasSentCoverLetter" />Sent Cover Letter
+                        </label>
+                    </div>
                     <div class="form-group">
                         <label asp-for="Perks" class="control-label">Perks</label>
                         <textarea asp-for="Perks" class="form-control"></textarea>
@@ -107,30 +132,13 @@
                         <textarea asp-for="Cons" class="form-control"></textarea>
                         <span asp-validation-for="Cons" class="text-danger"></span>
                     </div>
+                </div>
 
-                    <div>
-
-                        <label>
-                        <input type="checkbox" onclick="toggleAlreadyApplied()" id="hasApplied" style="margin-top: 5px;" /> already applied
-
-                        </label>
-                    </div>
-
-                    <div id="AppliedOn" class="form-group" style="display:none">
-                        <label asp-for="AppliedOn" class="control-label">Applied On</label>
-                        <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled=""/>
-                        <span asp-validation-for="AppliedOn" class="text-danger"></span>
-                    </div>
-                    <div id="HasSentResumne" class="form-group form-check" style="display:none">
-                        <label class="form-check-label">
-                        <input class="form-check-input" asp-for="HasSentResume" />Sent Resume
-                        </label>
-                    </div>
-
-                    <div id="HasSentCoverLetter" class="form-group form-check" style="display:none">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="HasSentCoverLetter" />Sent Cover Letter
-                        </label>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" style="min-height: 120px;"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
 

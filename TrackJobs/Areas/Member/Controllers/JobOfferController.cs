@@ -91,8 +91,8 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
-            "HasSentResume, HasSentCoverLetter, Salary, IsFavorite, Perks, " +
+        public async Task<IActionResult> Create([Bind("UserId, AppliedOn, CompanyName, OfferTitle, Description, SourceId, LinkToOffer, " +
+            "HasSentResume, HasSentCoverLetter, Salary, IsWFHAvailable, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Create m)
         {
             if (ModelState.IsValid)
@@ -103,11 +103,13 @@ namespace TrackJobs.Areas.Member.Controllers
                     AppliedOn = m.AppliedOn,
                     CompanyName = m.CompanyName,
                     OfferTitle = m.OfferTitle,
+                    Description = m.Description.Replace("\n", "<br/>"),
                     SourceId = m.SourceId,
                     LinkToOffer = m.LinkToOffer,
                     HasSentResume = m.HasSentResume,
                     HasSentCoverLetter = m.HasSentCoverLetter,
                     Salary = m.Salary,
+                    IsWFHAvailable = m.IsWFHAvailable,
                     IsFavorite = m.IsFavorite,
                     Perks = m.Perks,
                     Pros = m.Pros,
@@ -148,11 +150,13 @@ namespace TrackJobs.Areas.Member.Controllers
                 AppliedOn = jobOffer.AppliedOn,
                 CompanyName = jobOffer.CompanyName,
                 OfferTitle = jobOffer.OfferTitle,
+                Description = jobOffer.Description?.Replace("<br/>", "\r\n"),
                 SourceId = jobOffer.SourceId,
                 LinkToOffer = jobOffer.LinkToOffer,
                 HasSentResume = jobOffer.HasSentResume,
                 HasSentCoverLetter = jobOffer.HasSentCoverLetter,
                 Salary = jobOffer.Salary,
+                IsWFHAvailable = jobOffer.IsWFHAvailable,
                 IsFavorite = jobOffer.IsFavorite,
                 Perks = jobOffer.Perks,
                 Pros = jobOffer.Pros,
@@ -175,8 +179,8 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("GuId, UserId, AppliedOn, CompanyName, OfferTitle, SourceId, LinkToOffer, " +
-            "HasSentResume, HasSentCoverLetter, Salary, IsFavorite, Perks, " +
+        public async Task<IActionResult> Edit(Guid id, [Bind("GuId, UserId, AppliedOn, CompanyName, OfferTitle, Description, SourceId, LinkToOffer, " +
+            "HasSentResume, HasSentCoverLetter, Salary, IsWFHAvailable, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Edit m)
         {
             if (id != m.GuId)
@@ -195,11 +199,13 @@ namespace TrackJobs.Areas.Member.Controllers
                         AppliedOn = m.AppliedOn,
                         CompanyName = m.CompanyName,
                         OfferTitle = m.OfferTitle,
+                        Description = m.Description.Replace("\r\n", "<br/>"),
                         SourceId = m.SourceId,
                         LinkToOffer = m.LinkToOffer,
                         HasSentResume = m.HasSentResume,
                         HasSentCoverLetter = m.HasSentCoverLetter,
                         Salary = m.Salary,
+                        IsWFHAvailable = m.IsWFHAvailable,
                         IsFavorite = m.IsFavorite,
                         Perks = m.Perks,
                         Pros = m.Pros,

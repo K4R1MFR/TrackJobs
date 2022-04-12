@@ -8,6 +8,7 @@ namespace TrackJobs.Areas.Member.Models.JobOffer
         public DateTime? AppliedOn { get; set; }
         public string CompanyName { get; set; } = null!;
         public string OfferTitle { get; set; } = null!;
+        public string? Description { get; set; }
         public int SourceId { get; set; }
         public string? LinkToOffer { get; set; }
         public bool HasSentResume { get; set; }
@@ -21,6 +22,7 @@ namespace TrackJobs.Areas.Member.Models.JobOffer
         public string? City { get; set; }
         public int? Postcode { get; set; }
         public string? State { get; set; }
+        public bool IsWFHAvailable { get; set; }
         public bool IsFavorite { get; set; }
     }
 }

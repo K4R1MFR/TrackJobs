@@ -32,6 +32,7 @@ namespace TrackJobs.Areas.Member.Data
         public string? City { get; set; }
         public int? Postcode { get; set; }
         public string? State { get; set; }
+        public bool IsWFHAvailable { get; set; }
         public bool IsFavorite { get; set; }
         public bool IsSoftDeleted { get; set; }
         public bool IsRejected { get; set; }

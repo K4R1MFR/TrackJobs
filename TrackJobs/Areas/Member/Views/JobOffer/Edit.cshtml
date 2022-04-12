@@ -43,7 +43,12 @@
                 </div>
                 <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsFavorite" />Is Favorite
+                    <input class="form-check-input" asp-for="IsWFHAvailable" />WFH Available
+                </label>
+                </div>
+                <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsFavorite" />Favorite
                 </label>
                 </div>
             </div>
@@ -107,22 +112,6 @@
 
             <div class="col-md-4">
                 <label><strong>Optional</strong></label>
-                <div class="form-group">
-                    <label asp-for="Perks" class="control-label">Perks</label>
-                    <textarea asp-for="Perks" class="form-control"></textarea>
-                    <span asp-validation-for="Perks" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Pros" class="control-label">Pros</label>
-                    <textarea asp-for="Pros" class="form-control"></textarea>
-                    <span asp-validation-for="Pros" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Cons" class="control-label">Cons</label>
-                    <textarea asp-for="Cons" class="form-control"></textarea>
-                    <span asp-validation-for="Cons" class="text-danger"></span>
-                </div>
-
                 <div id="AppliedOn" class="form-group">
                     <label asp-for="AppliedOn" class="control-label">Applied On</label>
                     <input asp-for="AppliedOn" class="form-control" />
@@ -139,10 +128,34 @@
                         <input class="form-check-input" asp-for="HasSentCoverLetter" />Has Sent Cover Letter
                     </label>
                 </div>
+                <div class="form-group">
+                    <label asp-for="Perks" class="control-label">Perks</label>
+                    <textarea asp-for="Perks" class="form-control"></textarea>
+                    <span asp-validation-for="Perks" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Pros" class="control-label">Pros</label>
+                    <textarea asp-for="Pros" class="form-control"></textarea>
+                    <span asp-validation-for="Pros" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cons" class="control-label">Cons</label>
+                    <textarea asp-for="Cons" class="form-control"></textarea>
+                    <span asp-validation-for="Cons" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" style="min-height: 300px;"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
             </div>
 
+            
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="margin-top: 10px;" />
             </div>
             </div>
         </form>
