@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                Date Applied
+                Applied
             </th>
             <th>
-                Company Name
+                Company
             </th>
             <th>
                 Job Title
@@ -30,9 +30,18 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppliedOn)
-            </td>
+            
+                @if(@item.AppliedOn != null)
+                {
+                    <td>
+                        @item.AppliedOn?.ToString("dd MMMM yyyy")
+                    </td>
+                } else
+                {
+                    <td>
+                        not applied
+                    </td>
+                }
             <td>
                 @Html.DisplayFor(modelItem => item.CompanyName)
             </td>
