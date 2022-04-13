@@ -16,6 +16,11 @@ namespace TrackJobs.Controllers
 
         public IActionResult Index()
         {
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home", new { area = "Member" });
+            }
+
             return View();
         }
 
