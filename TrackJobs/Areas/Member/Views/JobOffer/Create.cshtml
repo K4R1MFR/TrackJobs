@@ -102,11 +102,17 @@
                         <input type="checkbox" onclick="toggleAlreadyApplied()" id="hasApplied" style="margin-top: 5px;" /> already applied
                         </label>
                     </div>
-                    <div id="AppliedOn" class="form-group" style="display:none">
+@*                    <div id="AppliedOn" class="form-group" style="display:none">
                         <label asp-for="AppliedOn" class="control-label">Applied On</label>
-                        <input id="AppliedOnInput" asp-for="AppliedOn" class="form-control" disabled=""/>
+                        <input asp-for="AppliedOn" class="form-control" disabled=""/>
                         <span asp-validation-for="AppliedOn" class="text-danger"></span>
                     </div>
+*@                    <div id="AppliedOn" class="form-group" style="display:none" >
+                        <label asp-for="AppliedOn" class="control-label">Applied On</label>
+                        <input asp-for="AppliedOn" id="AppliedOnInput" class="form-control" disabled/>
+                        <span asp-validation-for="AppliedOn" class="text-danger"></span>
+                    </div>
+
                     <div id="HasSentResumne" class="form-group form-check" style="display:none">
                         <label class="form-check-label">
                         <input class="form-check-input" asp-for="HasSentResume" />Sent Resume
@@ -184,9 +190,5 @@ function toggleAlreadyApplied() {
     document.getElementById("HasSentResumne").style.display = check === true ? "block" : "none";
     document.getElementById("HasSentCoverLetter").style.display = check === true ? "block" : "none";
 
-    if(check === true) {
-        //document.getElementById("AppliedOn").value = Date.now;
-    }
-        console.log(Date.now)
 }
 </script>

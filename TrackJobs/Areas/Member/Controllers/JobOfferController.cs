@@ -79,7 +79,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var m = new Models.JobOffer.Create
             {
                 UserId = userId,
-                //AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
+                AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
             };
 
             ViewData["SourceId"] = new SelectList(_context.Sources, "Id", "Name");
@@ -103,7 +103,7 @@ namespace TrackJobs.Areas.Member.Controllers
                     AppliedOn = m.AppliedOn,
                     CompanyName = m.CompanyName,
                     OfferTitle = m.OfferTitle,
-                    Description = m.Description.Replace("\n", "<br/>"),
+                    Description = m.Description?.Replace("\n", "<br/>"),
                     SourceId = m.SourceId,
                     LinkToOffer = m.LinkToOffer,
                     HasSentResume = m.HasSentResume,
