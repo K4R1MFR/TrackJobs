@@ -199,7 +199,7 @@ namespace TrackJobs.Areas.Member.Controllers
                         AppliedOn = m.AppliedOn,
                         CompanyName = m.CompanyName,
                         OfferTitle = m.OfferTitle,
-                        Description = m.Description.Replace("\r\n", "<br/>"),
+                        Description = m.Description?.Replace("\r\n", "<br/>"),
                         SourceId = m.SourceId,
                         LinkToOffer = m.LinkToOffer,
                         HasSentResume = m.HasSentResume,
