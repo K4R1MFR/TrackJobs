@@ -49,11 +49,11 @@
         @{
             if(User.IsInRole("Member"))
             {
-                <input type="submit" value="Delete" class="btn btn-danger" />
+                <input type="submit" value="Delete" class="btn btn-supprimer" />
             }
             if(User.IsInRole("Demo"))
             {
-                <input type="submit" value="Delete" class="btn btn-danger" disabled />
+                <input type="submit" value="Delete" class="btn btn-supprimer" disabled />
                 <span>(disabled for demo)</span>
             }
         }
