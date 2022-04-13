@@ -45,7 +45,19 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a href="javascript: history.go(-1)">Go Back</a>
+
+        @{
+            if(User.IsInRole("Member"))
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            }
+            if(User.IsInRole("Demo"))
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" disabled />
+                <span>(disabled for demo)</span>
+            }
+        }
+
+        | <a href="javascript: history.go(-1)">Go Back</a>
     </form>
 </div>

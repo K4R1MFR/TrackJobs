@@ -13,7 +13,7 @@ using TrackJobs.Data;
 
 namespace TrackJobs.Areas.Member.Controllers
 {
-    [Area("Member"), Authorize(Roles = "Member, Admin")]
+    [Area("Member"), Authorize(Roles = "Member, Admin, Demo")]
 
     public class JobOfferController : Controller
     {
@@ -79,7 +79,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var m = new Models.JobOffer.Create
             {
                 UserId = userId,
-                AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
+                //AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
             };
 
             ViewData["SourceId"] = new SelectList(_context.Sources, "Id", "Name");

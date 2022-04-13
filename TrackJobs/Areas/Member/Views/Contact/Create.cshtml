@@ -40,9 +40,22 @@
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <br/>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+
+            @{
+                if(User.IsInRole("Member"))
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                }
+                if(User.IsInRole("Demo"))
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" disabled />
+                        <span>(disabled for demo)</span>
+                    </div>
+                }
+            }
         </form>
     </div>
 </div>

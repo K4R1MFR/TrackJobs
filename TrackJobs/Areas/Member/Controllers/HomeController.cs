@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TrackJobs.Areas.Member.Controllers
 {
-    [Area("Member"), Authorize(Roles = "Member, Admin")]
+    [Area("Member"), Authorize(Roles = "Member, Admin, Demo")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

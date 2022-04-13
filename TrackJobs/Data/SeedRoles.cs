@@ -9,7 +9,7 @@ namespace TrackJobs.Data
         {
             using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
             {
-                string[] roles = new string[] { "Member", "Admin" };
+                string[] roles = new string[] { "Member", "Admin", "Demo" };
 
                 var newrolelist = new List<IdentityRole>();
                 foreach (string role in roles)

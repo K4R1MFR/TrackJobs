@@ -4,17 +4,11 @@
 }
 
 <div class="text-center">
-@*    <h1 class="display-4">Welcome</h1>
-    <p>name: @ViewBag.user.UserName</p>
-*@@*    <a asp-controller="JobOffer" asp-action="Create" class="btn btn-dark">Add New Offer</a>
-*@    
     <h1>My Offers</h1>
     <a asp-controller="JobOffer" asp-action="Create">
-        <input type="button" value="Add New" class="btn" onclick="/JobOffer/Create" style="background-color: #304D6D; color: #a7cced;" />
+        <input type="button" value="Add New" class="btn" style="background-color: #304D6D; color: #a7cced;" />
     </a>
     <hr/>
-
-
 
     @if(ViewBag.jobOffers.Count == 0)
     {

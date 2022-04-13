@@ -33,7 +33,17 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="GuId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-    <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
+        @{
+            if(User.IsInRole("Member"))
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            }
+            if(User.IsInRole("Demo"))
+            {
+                <input type="submit" value="Delete" class="btn btn-danger" disabled />
+                <span>(disabled for demo)</span>
+            }
+        }
+        | <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
     </form>
 </div>
