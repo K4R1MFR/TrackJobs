@@ -5,6 +5,7 @@ using TrackJobs.Data;
 using TrackJobs.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using TrackJobs.Areas.Member.Data;
 
 namespace TrackJobs.Areas.Member.Controllers
 {
@@ -23,18 +24,97 @@ namespace TrackJobs.Areas.Member.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string order)
         {
             var user = await _userManager.GetUserAsync(User);
             ViewBag.user = user;
 
-            var jobOffers = _context.JobOffers
-                .Where(j => j.UserId == user.Id)
-                .Where(j => j.IsSoftDeleted == false)
-                .Include(j => j.Source)
-                .Include(j => j.Contacts)
-                .Include(j => j.Communications)
-                .ToList();
+            List<JobOffer> jobOffers = new List<JobOffer>();
+
+            if (order is null || order == "favorite")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.IsFavorite)
+                    .ToList();
+            }
+            else if (order == "applied")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.AppliedOn)
+                    .ToList();
+
+            }
+            else if (order == "activity")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                    .ToList();
+            }
+
+            ViewBag.jobOffers = jobOffers;
+
+            return View(jobOffers);
+        }
+        public async Task<IActionResult> ChangeOrder(string order)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            ViewBag.user = user;
+
+            List<JobOffer> jobOffers = new List<JobOffer>();
+
+            if(order is null)
+            {
+                return NotFound();
+            } else if(order == "favorite")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.IsFavorite)
+                    .ToList();
+            }
+            else if (order == "applied")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.AppliedOn)
+                    .ToList();
+
+            }
+            else if(order == "activity")
+            {
+                jobOffers = _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                    .ToList();
+            }
+
 
             ViewBag.jobOffers = jobOffers;
 

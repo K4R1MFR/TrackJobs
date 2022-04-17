@@ -110,3 +110,19 @@ footer a {
     background-color: #6c1d1d;
     color: #a7cced;
 }
+
+.premier-color {
+    color: #304D6D;
+}
+
+.premier-background {
+    background-color: #304D6D;
+}
+
+.second-color {
+    color: #a7cced;
+}
+
+.second-background {
+    background-color: #a7cced;
+}
