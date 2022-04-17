@@ -7,16 +7,16 @@
     <h1>My Offers</h1>
     <a asp-controller="JobOffer" asp-action="Create" class="btn btn-premier" >Add New</a>
 
+    <hr/>
+
     <div class="row">
-        <div class="col-md-12" style="text-align:right; margin-top: 5px;">
+        <div class="col-md-12" style="text-align:right; margin-bottom: 5px;">
             <span class="premier-color"><strong>order by:</strong></span>
             <a asp-controller="Home" asp-action="Index" asp-route-order="favorite" class="btn btn-premier">Favorite</a>
             <a asp-controller="Home" asp-action="Index" asp-route-order="activity" class="btn btn-premier">Activity</a>
             <a asp-controller="Home" asp-action="Index" asp-route-order="applied" class="btn btn-premier">Applied</a>
         </div>
     </div>
-
-    <hr/>
 
     @if(ViewBag.jobOffers.Count == 0)
     {
