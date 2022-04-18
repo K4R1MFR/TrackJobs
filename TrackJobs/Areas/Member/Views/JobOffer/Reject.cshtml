@@ -1,0 +1,66 @@
+﻿@model TrackJobs.Areas.Member.Data.JobOffer
+
+@{
+    ViewData["Title"] = "Reject";
+}
+
+<h1>Reject</h1>
+
+<h3>Are you sure this offer has been rejected?</h3>
+<div>
+    <h4>Job Offer</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Applied on
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.AppliedOn?.ToString("dd MMMM yyyy")
+        </dd>
+        <dt class = "col-sm-2">
+            Company Name
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+        <dt class = "col-sm-2">
+            Offer Title
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OfferTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Source.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Link to Offer
+        </dt>
+        <dd class = "col-sm-10">
+            <a href="@Html.DisplayFor(model => model.LinkToOffer)" target="_blank">@Html.DisplayFor(model => model.LinkToOffer)</a>
+        </dd>
+    </dl>
+    
+    <form asp-action="Reject">
+        <input type="hidden" asp-for="GuId" />
+        <label asp-for="RejectionFeedback" class="control-label"><strong>Feedback</strong></label>
+        <textarea asp-for="RejectionFeedback" class="form-control" ></textarea>
+        <br/>
+
+        @{
+            if(User.IsInRole("Member"))
+            {
+                <input type="submit" value="Reject" class="btn btn-supprimer" />
+            }
+            if(User.IsInRole("Demo"))
+            {
+                <input type="submit" value="Reject" class="btn btn-supprimer" disabled />
+                <span>(disabled for demo)</span>
+            }
+        }
+
+        | <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
+    </form>
+</div>
