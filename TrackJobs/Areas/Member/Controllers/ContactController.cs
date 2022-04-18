@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace TrackJobs.Areas.Member.Controllers
     public class ContactController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ContactController(ApplicationDbContext context)
+        public ContactController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Member/Contact
@@ -41,6 +44,7 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: Member/Contact/Details/5
+        //id here is Contact id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,6 +59,16 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == contact.JobOfferId).FirstOrDefaultAsync();
+
+            if(jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
 
             return View(contact);
         }

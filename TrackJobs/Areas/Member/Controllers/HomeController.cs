@@ -24,46 +24,52 @@ namespace TrackJobs.Areas.Member.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string order)
+        public async Task<IActionResult> Index(string orderBy)
         {
             var user = await _userManager.GetUserAsync(User);
             ViewBag.user = user;
 
             List<JobOffer> jobOffers = new List<JobOffer>();
 
-            if (order is null || order == "favorite")
+            if (orderBy is null || orderBy == "activity")
             {
-                jobOffers = _context.JobOffers
+                jobOffers = await _context.JobOffers
                     .Where(j => j.UserId == user.Id)
                     .Where(j => j.IsSoftDeleted == false)
-                    .Include(j => j.Source)
-                    .Include(j => j.Contacts)
-                    .Include(j => j.Communications)
-                    .OrderByDescending(j => j.IsFavorite)
-                    .ToList();
-            }
-            else if (order == "applied")
-            {
-                jobOffers = _context.JobOffers
-                    .Where(j => j.UserId == user.Id)
-                    .Where(j => j.IsSoftDeleted == false)
-                    .Include(j => j.Source)
-                    .Include(j => j.Contacts)
-                    .Include(j => j.Communications)
-                    .OrderByDescending(j => j.AppliedOn)
-                    .ToList();
-
-            }
-            else if (order == "activity")
-            {
-                jobOffers = _context.JobOffers
-                    .Where(j => j.UserId == user.Id)
-                    .Where(j => j.IsSoftDeleted == false)
+                    .Where(j => j.IsClosed == false)
+                    .Where(j => j.IsRejected == false)
                     .Include(j => j.Source)
                     .Include(j => j.Contacts)
                     .Include(j => j.Communications)
                     .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
-                    .ToList();
+                    .ToListAsync();
+            }
+            else if (orderBy == "favorite")
+            {
+                jobOffers = await _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Where(j => j.IsClosed == false)
+                    .Where(j => j.IsRejected == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.IsFavorite)
+                    .ToListAsync();
+            }
+            else if (orderBy == "applied")
+            {
+                jobOffers = await _context.JobOffers
+                    .Where(j => j.UserId == user.Id)
+                    .Where(j => j.IsSoftDeleted == false)
+                    .Where(j => j.IsClosed == false)
+                    .Where(j => j.IsRejected == false)
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
+                    .OrderByDescending(j => j.AppliedOn)
+                    .ToListAsync();
+
             }
 
             ViewBag.jobOffers = jobOffers;

@@ -4,7 +4,9 @@
 }
 
 <div class="text-center">
-    <h1>My Offers</h1>
+    <h1>
+        My Offers (@Model.Count())
+    </h1>
     <a asp-controller="JobOffer" asp-action="Create" class="btn btn-premier" >Add New</a>
 
     <hr/>
@@ -12,9 +14,9 @@
     <div class="row">
         <div class="col-md-12" style="text-align:right; margin-bottom: 10px;">
             <span class="premier-color"><strong>order by:</strong></span>
-            <a asp-controller="Home" asp-action="Index" asp-route-order="favorite" class="btn btn-premier">Favorite</a>
-            <a asp-controller="Home" asp-action="Index" asp-route-order="activity" class="btn btn-premier">Activity</a>
-            <a asp-controller="Home" asp-action="Index" asp-route-order="applied" class="btn btn-premier">Applied</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-orderBy="favorite" class="btn btn-premier">Favorite</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-orderBy="activity" class="btn btn-premier">Activity</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-orderBy="applied" class="btn btn-premier">Applied</a>
         </div>
     </div>
 
@@ -33,7 +35,7 @@
                         <div class="card-header">
                             <h5>
                                 <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.GuId" style="text-decoration: none;">
-                                  @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning "></i>
+                                  @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning"></i>
                                 </a>
                                 @offer.CompanyName 
                             </h5>

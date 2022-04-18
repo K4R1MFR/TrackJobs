@@ -9,9 +9,22 @@
 <p>
     <a asp-action="Create">Create New Job Offer</a> | <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
 </p>
+
+<hr/>
+
+<div style="text-align:right; margin-bottom: 10px;">
+    <span class="premier-color"><strong>order by:</strong></span>
+    <a asp-controller="JobOffer" asp-action="Index" asp-route-orderBy="favorite" class="btn btn-premier">Favorite</a>
+    <a asp-controller="JobOffer" asp-action="Index" asp-route-orderBy="activity" class="btn btn-premier">Activity</a>
+    <a asp-controller="JobOffer" asp-action="Index" asp-route-orderBy="applied" class="btn btn-premier">Applied</a>
+</div>
+
+
+<h3>Active (@Model.Where(j => j.IsClosed == false).Where(j => j.IsRejected == false).Count())</h3>
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 Applied
             </th>
@@ -29,34 +42,187 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            
-                @if(@item.AppliedOn != null)
-                {
+            if(item.IsClosed == false || !item.IsRejected == false)
+            {
+                <tr>
+                    @if(@item.IsFavorite is true)
+                    {
+                        <td>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </td>
+                    } else
+                    {
+                        <td>
+                            <i class="bi bi-star text-warning"></i>
+                        </td>
+                    }
+
+                    @if(@item.AppliedOn != null)
+                    {
+                        <td>
+                            @item.AppliedOn?.ToString("dd MMMM yyyy")
+                        </td>
+                    } else
+                    {
+                        <td>
+                            not applied
+                        </td>
+                    }
                     <td>
-                        @item.AppliedOn?.ToString("dd MMMM yyyy")
+                        @Html.DisplayFor(modelItem => item.CompanyName)
                     </td>
-                } else
-                {
                     <td>
-                        not applied
+                        @Html.DisplayFor(modelItem => item.OfferTitle)
                     </td>
-                }
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfferTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Source.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
-            </td>
-        </tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
+                    </td>
+                </tr>
+            }
 }
     </tbody>
 </table>
+
+<hr/>
+<h3>Closed (@Model.Where(j => j.IsClosed == true).Count())</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Applied
+            </th>
+            <th>
+                Company
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Source
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if(item.IsClosed is true)
+            {
+                <tr>
+                    @if(@item.IsFavorite is true)
+                    {
+                        <td>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </td>
+                    } else
+                    {
+                        <td>
+                            <i class="bi bi-star text-warning"></i>
+                        </td>
+                    }
+
+                    @if(@item.AppliedOn != null)
+                    {
+                        <td>
+                            @item.AppliedOn?.ToString("dd MMMM yyyy")
+                        </td>
+                    } else
+                    {
+                        <td>
+                            not applied
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OfferTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source.Name)
+                    </td>
+                    <td>
+                    <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
+                    </td>
+                </tr>
+            }
+}
+    </tbody>
+</table>
+
+<hr/>
+<h3>Rejected (@Model.Where(j => j.IsRejected == true).Count())</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>
+                Applied
+            </th>
+            <th>
+                Company
+            </th>
+            <th>
+                Job Title
+            </th>
+            <th>
+                Feedback
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+            if(item.IsRejected is true)
+            {
+                <tr>
+                    @if(@item.AppliedOn != null)
+                    {
+                        <td>
+                            @item.AppliedOn?.ToString("dd MMMM yyyy")
+                        </td>
+                    } else
+                    {
+                        <td>
+                            not applied
+                        </td>
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OfferTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RejectionFeedback)
+                    </td>
+                    @if(@item.RejectionFeedback != null)
+                    {
+                        <td>
+                            @item.RejectionFeedback?.ToString()
+                        </td>
+                    } else
+                    {
+                        <td>
+                            no feedback
+                        </td>
+                    }
+
+                    <td>
+                    <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
+                    </td>
+                </tr>
+            }
+}
+    </tbody>
+</table>
+

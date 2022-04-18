@@ -29,7 +29,7 @@ namespace TrackJobs.Areas.Member.Controllers
         }
 
         // GET: JobOffer
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string orderBy)
         {
             var userId = _userManager.GetUserId(User);
             if (userId is null)
@@ -37,12 +37,35 @@ namespace TrackJobs.Areas.Member.Controllers
                 return NotFound();
             }
 
-            var applicationDbContext = _context.JobOffers
+            List<JobOffer> jobOffers = new List<JobOffer>();
+
+            if (orderBy is null || orderBy == "favorite")
+            {
+                jobOffers = await _context.JobOffers
                 .Include(j => j.Source)
                 .Where(j => j.UserId == userId)
-                .Where(j => j.IsSoftDeleted == false);
+                .Where(j => j.IsSoftDeleted == false)
+                .OrderByDescending(j => j.IsFavorite)
+                .ToListAsync();
+            } else if(orderBy == "activity")
+            {
+                jobOffers = await _context.JobOffers
+                .Include(j => j.Source)
+                .Where(j => j.UserId == userId)
+                .Where(j => j.IsSoftDeleted == false)
+                .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                .ToListAsync();
+            } else if(orderBy == "applied")
+            {
+                jobOffers = await _context.JobOffers
+                .Include(j => j.Source)
+                .Where(j => j.UserId == userId)
+                .Where(j => j.IsSoftDeleted == false)
+                .OrderByDescending(j => j.AppliedOn)
+                .ToListAsync();
+            }
 
-            return View(await applicationDbContext.ToListAsync());
+            return View(jobOffers);
         }
 
         // GET: JobOffer/Details/5
