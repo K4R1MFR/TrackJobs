@@ -78,9 +78,9 @@
                         @Html.DisplayFor(modelItem => item.Source.Name)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.GuId" class="row-cols-sm-4">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.GuId" class="row-cols-sm-4">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.GuId" class="row-cols-sm-4">Delete</a>
                     </td>
                 </tr>
             }
@@ -147,7 +147,6 @@
                         @Html.DisplayFor(modelItem => item.Source.Name)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
                     </td>
@@ -226,7 +225,6 @@
                     }
 
                     <td>
-                    <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
                     </td>

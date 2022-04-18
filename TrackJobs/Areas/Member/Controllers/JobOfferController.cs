@@ -168,6 +168,13 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            //prevent user to edit joboffer if it is closed or rejected
+            if(jobOffer.IsRejected == true || jobOffer.IsClosed == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var m = new Models.JobOffer.Edit
             {
                 GuId = jobOffer.GuId,

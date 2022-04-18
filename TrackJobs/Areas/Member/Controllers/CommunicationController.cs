@@ -35,7 +35,8 @@ namespace TrackJobs.Areas.Member.Controllers
 
             var applicationDbContext = _context.Communications
                 .Include(c => c.JobOffer)
-                .Where(c => c.JobOfferId == id);
+                .Where(c => c.JobOfferId == id)
+                .OrderByDescending(c => c.Date);
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -97,7 +98,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
                 _context.Add(communication);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Communication");
             }
 
             return View(m);

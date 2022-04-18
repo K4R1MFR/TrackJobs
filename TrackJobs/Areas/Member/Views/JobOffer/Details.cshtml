@@ -68,13 +68,13 @@
                     @Html.DisplayFor(model => model.HasInterviewed)
                 </dd>
                 <dt class = "col-sm-4">
-                    @{ var activity = Model.Communications.Count < 2 ? "Activity" : "Activities"; } @activity
+                    @{ var activity = Model.Communications.Count < 2 ? "Activity" : "Activities"; } <a asp-controller="Communication" asp-action="Index" asp-route-id=@Model.GuId >@activity</a>
                 </dt>
                 <dd class = "col-sm-8">
                     @Model.Communications.Count
                 </dd>
                 <dt class = "col-sm-4">
-                    @{ var contact = Model.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact
+                    @{ var contact = Model.Contacts.Count < 2 ? "Contact" : "Contacts"; } <a asp-controller="Contact" asp-action="Index" asp-route-id=@Model.GuId >@contact</a>
                 </dt>
                 <dd class = "col-sm-8">
                     @Model.Contacts.Count
