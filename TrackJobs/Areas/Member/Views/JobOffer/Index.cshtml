@@ -42,7 +42,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            if(item.IsClosed == false || !item.IsRejected == false)
+            if(item.IsClosed == false && item.IsRejected == false)
             {
                 <tr>
                     @if(@item.IsFavorite is true)
@@ -111,7 +111,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            if(item.IsClosed is true)
+            if(item.IsClosed == true)
             {
                 <tr>
                     @if(@item.IsFavorite is true)
@@ -147,9 +147,9 @@
                         @Html.DisplayFor(modelItem => item.Source.Name)
                     </td>
                     <td>
-                    <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.GuId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.GuId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.GuId">Delete</a>
                     </td>
                 </tr>
             }
@@ -180,9 +180,21 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            if(item.IsRejected is true)
+            if(item.IsRejected == true)
             {
                 <tr>
+                    @if(@item.IsFavorite is true)
+                    {
+                        <td>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </td>
+                    } else
+                    {
+                        <td>
+                            <i class="bi bi-star text-warning"></i>
+                        </td>
+                    }
+
                     @if(@item.AppliedOn != null)
                     {
                         <td>
@@ -198,11 +210,9 @@
                         @Html.DisplayFor(modelItem => item.CompanyName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.OfferTitle)
+                        @item.OfferTitle
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RejectionFeedback)
-                    </td>
+
                     @if(@item.RejectionFeedback != null)
                     {
                         <td>
