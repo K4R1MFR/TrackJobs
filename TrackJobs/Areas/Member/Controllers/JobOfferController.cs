@@ -261,6 +261,39 @@ namespace TrackJobs.Areas.Member.Controllers
             return View(m);
         }
 
+        // GET: JobOffer/Close/5
+        public async Task<IActionResult> Close(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var jobOffer = await _context.JobOffers
+                .Include(j => j.Source)
+                .FirstOrDefaultAsync(m => m.GuId == id);
+            if (jobOffer == null)
+            {
+                return NotFound();
+            }
+
+            return View(jobOffer);
+        }
+
+        // POST: JobOffer/Close/5
+        [HttpPost, ActionName("Close")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CloseConfirmed(Guid id)
+        {
+            var jobOffer = await _context.JobOffers.FindAsync(id);
+            jobOffer.IsClosed = true;
+            _context.JobOffers.Update(jobOffer);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
         // GET: JobOffer/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
