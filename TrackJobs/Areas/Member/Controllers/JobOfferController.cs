@@ -78,6 +78,8 @@ namespace TrackJobs.Areas.Member.Controllers
 
             var jobOffer = await _context.JobOffers
                 .Include(j => j.Source)
+                .Include(j => j.Communications)
+                .Include(j => j.Contacts)
                 .FirstOrDefaultAsync(m => m.GuId == id);
             if (jobOffer == null)
             {

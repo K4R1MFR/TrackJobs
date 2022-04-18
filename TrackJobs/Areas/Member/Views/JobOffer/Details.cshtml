@@ -68,6 +68,18 @@
                     @Html.DisplayFor(model => model.HasInterviewed)
                 </dd>
                 <dt class = "col-sm-4">
+                    @{ var activity = Model.Communications.Count < 2 ? "Activity" : "Activities"; } @activity
+                </dt>
+                <dd class = "col-sm-8">
+                    @Model.Communications.Count
+                </dd>
+                <dt class = "col-sm-4">
+                    @{ var contact = Model.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact
+                </dt>
+                <dd class = "col-sm-8">
+                    @Model.Contacts.Count
+                </dd>
+                <dt class = "col-sm-4">
                     Interview Date
                 </dt>
                 <dd class = "col-sm-8">
