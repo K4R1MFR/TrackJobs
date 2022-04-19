@@ -46,9 +46,13 @@
                         
                         <div id="@offer.GuId" class="card-body">
                             <div class="card-title"><strong>@offer.OfferTitle</strong></div>
-                            <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.GuId" class="btn btn-premier">Edit</a> |
-                            <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.GuId" class="btn btn-premier">Details</a> |
-                            <a asp-controller="JobOffer" asp-action="Close" asp-route-id="@offer.GuId" class="btn btn-supprimer">Close</a>
+                            <div style="display: flex-wrap;">
+                                <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-premier">Edit</a> 
+                                <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-premier">Details</a> 
+                                <a asp-controller="JobOffer" asp-action="Close" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-supprimer">Close</a> 
+                                <a asp-controller="JobOffer" asp-action="Reject" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-supprimer">Reject</a> 
+                                <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-supprimer">Delete</a>
+                            </div>
                                 
                             <div class="extra-info" style="display: none;">
                             <hr />

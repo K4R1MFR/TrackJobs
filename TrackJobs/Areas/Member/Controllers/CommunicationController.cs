@@ -98,7 +98,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
                 _context.Add(communication);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Communication");
+                return RedirectToAction("Index", "Communication", new { id = m.JobOfferId });
             }
 
             return View(m);
@@ -212,7 +212,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var communication = await _context.Communications.FindAsync(id);
             _context.Communications.Remove(communication);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Communication", new { id = communication.JobOfferId });
         }
 
         private bool CommunicationExists(int id)
