@@ -41,10 +41,10 @@
                     <dd class = "col-sm-8">
                         @Html.DisplayFor(model => model.HasSentResume)
                     </dd>
-                    <dt class = "col-sm-4">
+                    <dt class = "col-sm-5">
                         Sent Cover Letter
                     </dt>
-                    <dd class = "col-sm-8">
+                    <dd class = "col-sm-7">
                         @Html.DisplayFor(model => model.HasSentCoverLetter)
                     </dd>
 
@@ -59,7 +59,7 @@
                     Applied On
                 </dt>
                 <dd class = "col-sm-8">
-                    @Html.DisplayFor(model => model.AppliedOn)
+                    @Model.AppliedOn?.ToString("dd MMMM yyyy")
                 </dd>
                 <dt class = "col-sm-4">
                     Interviewed
