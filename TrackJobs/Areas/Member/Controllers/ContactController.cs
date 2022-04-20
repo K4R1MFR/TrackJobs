@@ -113,7 +113,7 @@ namespace TrackJobs.Areas.Member.Controllers
 
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Contact");
+                return RedirectToAction("Index", "Home");
             }
 
             return View(m);
