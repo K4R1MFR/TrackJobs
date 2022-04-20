@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace TrackJobs.Areas.Member.Controllers
     public class CommunicationController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public CommunicationController(ApplicationDbContext context)
+        public CommunicationController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Member/Communication
@@ -56,6 +59,16 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == communication.JobOfferId).FirstOrDefaultAsync();
+
+            if (jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
 
             return View(communication);
         }
@@ -117,6 +130,16 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == communication.JobOfferId).FirstOrDefaultAsync();
+
+            if (jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
 
             var m = new Models.Communication.Edit
             {
@@ -200,6 +223,16 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == communication.JobOfferId).FirstOrDefaultAsync();
+
+            if (jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
 
             return View(communication);
         }
