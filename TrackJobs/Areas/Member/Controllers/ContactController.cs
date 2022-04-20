@@ -133,6 +133,16 @@ namespace TrackJobs.Areas.Member.Controllers
                 return NotFound();
             }
 
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == contact.JobOfferId).FirstOrDefaultAsync();
+
+            if (jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
+
             var m = new Models.Contact.Edit
             {
                 Id = contact.Id,
@@ -218,6 +228,16 @@ namespace TrackJobs.Areas.Member.Controllers
             {
                 return NotFound();
             }
+
+            var userId = _userManager.GetUserId(User);
+
+            var jobOffer = await _context.JobOffers.Where(j => j.GuId == contact.JobOfferId).FirstOrDefaultAsync();
+
+            if (jobOffer.UserId != userId)
+            {
+                return NotFound();
+            }
+
 
             return View(contact);
         }
