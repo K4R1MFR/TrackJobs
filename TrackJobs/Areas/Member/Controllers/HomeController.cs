@@ -24,52 +24,77 @@ namespace TrackJobs.Areas.Member.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string orderBy)
+        public async Task<IActionResult> Index(string orderBy, string searchString)
         {
             var user = await _userManager.GetUserAsync(User);
             ViewBag.user = user;
 
             List<JobOffer> jobOffers = new List<JobOffer>();
-
-            if (orderBy is null || orderBy == "activity")
+            if (!String.IsNullOrEmpty(searchString))
             {
                 jobOffers = await _context.JobOffers
+                    .Include(j => j.Source)
+                    .Include(j => j.Contacts)
+                    .Include(j => j.Communications)
                     .Where(j => j.UserId == user.Id)
                     .Where(j => j.IsSoftDeleted == false)
                     .Where(j => j.IsClosed == false)
                     .Where(j => j.IsRejected == false)
-                    .Include(j => j.Source)
-                    .Include(j => j.Contacts)
-                    .Include(j => j.Communications)
-                    .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                    .Where(j => j.CompanyName.Contains(searchString) || j.OfferTitle.Contains(searchString))
                     .ToListAsync();
-            }
-            else if (orderBy == "favorite")
+            } else
             {
-                jobOffers = await _context.JobOffers
-                    .Where(j => j.UserId == user.Id)
-                    .Where(j => j.IsSoftDeleted == false)
-                    .Where(j => j.IsClosed == false)
-                    .Where(j => j.IsRejected == false)
-                    .Include(j => j.Source)
-                    .Include(j => j.Contacts)
-                    .Include(j => j.Communications)
-                    .OrderByDescending(j => j.IsFavorite)
-                    .ToListAsync();
-            }
-            else if (orderBy == "applied")
-            {
-                jobOffers = await _context.JobOffers
-                    .Where(j => j.UserId == user.Id)
-                    .Where(j => j.IsSoftDeleted == false)
-                    .Where(j => j.IsClosed == false)
-                    .Where(j => j.IsRejected == false)
-                    .Include(j => j.Source)
-                    .Include(j => j.Contacts)
-                    .Include(j => j.Communications)
-                    .OrderByDescending(j => j.AppliedOn)
-                    .ToListAsync();
-
+                switch (orderBy)
+                {
+                    case "activity":
+                        jobOffers = await _context.JobOffers
+                            .Where(j => j.UserId == user.Id)
+                            .Where(j => j.IsSoftDeleted == false)
+                            .Where(j => j.IsClosed == false)
+                            .Where(j => j.IsRejected == false)
+                            .Include(j => j.Source)
+                            .Include(j => j.Contacts)
+                            .Include(j => j.Communications)
+                            .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                            .ToListAsync();
+                        break;
+                    case "favorite":
+                        jobOffers = await _context.JobOffers
+                            .Where(j => j.UserId == user.Id)
+                            .Where(j => j.IsSoftDeleted == false)
+                            .Where(j => j.IsClosed == false)
+                            .Where(j => j.IsRejected == false)
+                            .Include(j => j.Source)
+                            .Include(j => j.Contacts)
+                            .Include(j => j.Communications)
+                            .OrderByDescending(j => j.IsFavorite)
+                            .ToListAsync();
+                        break;
+                    case "applied":
+                        jobOffers = await _context.JobOffers
+                            .Where(j => j.UserId == user.Id)
+                            .Where(j => j.IsSoftDeleted == false)
+                            .Where(j => j.IsClosed == false)
+                            .Where(j => j.IsRejected == false)
+                            .Include(j => j.Source)
+                            .Include(j => j.Contacts)
+                            .Include(j => j.Communications)
+                            .OrderByDescending(j => j.AppliedOn)
+                            .ToListAsync();
+                        break;
+                    default:
+                        jobOffers = await _context.JobOffers
+                            .Where(j => j.UserId == user.Id)
+                            .Where(j => j.IsSoftDeleted == false)
+                            .Where(j => j.IsClosed == false)
+                            .Where(j => j.IsRejected == false)
+                            .Include(j => j.Source)
+                            .Include(j => j.Contacts)
+                            .Include(j => j.Communications)
+                            .OrderByDescending(j => j.Communications.OrderBy(c => c.Date).LastOrDefault().Date)
+                            .ToListAsync();
+                        break;
+                }
             }
 
             ViewBag.jobOffers = jobOffers;

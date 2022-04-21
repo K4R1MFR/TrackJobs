@@ -18,6 +18,13 @@
             <a asp-controller="Home" asp-action="Index" asp-route-orderBy="activity" class="btn btn-premier">Activity</a>
             <a asp-controller="Home" asp-action="Index" asp-route-orderBy="applied" class="btn btn-premier">Applied</a>
         </div>
+        <div class="col-md-12" style="text-align:right; margin-bottom: 5px;">
+            @using (Html.BeginForm())
+            {
+                        @Html.TextBox("searchString") 
+                        <input class="btn btn-premier" type="submit" value="Search" />
+            }
+        </div>
     </div>
 
     @if(ViewBag.jobOffers.Count == 0)
