@@ -65,14 +65,16 @@
                             <hr />
                             <div style="display: inline-flex;">
                                 <div>
-                                    <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
-                                    <p>@{ var communication = offer.Communications.Count < 2 ? "Activity" : "Activities"; } @communication: @offer.Communications.Count</p>
+                                    <p><a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">@{ var communication = offer.Communications.Count < 2 ? "Activity" : "Activities"; } @communication: @offer.Communications.Count
+                                        <br/>See All</a>
+                                    </p>
                                     <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Activity</a>
                                 </div>
                                 <hr style="width: 1px; height: 60px; display: inline-block; margin-left: 10px; margin-right: 10px;">
                                 <div>
-                                    <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
-                                    <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
+                                    <p><a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count
+                                        <br/>See All</a>
+                                    </p>
                                     <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Contact</a>
                                 </div>
                             </div>
