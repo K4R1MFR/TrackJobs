@@ -21,8 +21,8 @@
         <div class="col-md-12" style="text-align:right; margin-bottom: 5px;">
             @using (Html.BeginForm())
             {
-                        @Html.TextBox("searchString") 
-                        <input class="btn btn-premier" type="submit" value="Search" />
+                @Html.TextBox("searchString", null, new { @style="border-radius: 4px;"}) 
+                <input class="btn btn-premier" type="submit" value="Search" />
             }
         </div>
     </div>
@@ -37,7 +37,7 @@
 
             @foreach(var offer in ViewBag.jobOffers)
             {
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
                             <h5>
@@ -61,15 +61,21 @@
                                 <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-supprimer">Delete</a>
                             </div>
                                 
-                            <div class="extra-info" style="display: none;">
+                            <div class="extra-info center justify-content-center align-content-center align-items-center align-self-center text-center" style="display: none;">
                             <hr />
-                                <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
-                                <p>@{ var communication = offer.Communications.Count < 2 ? "Activity" : "Activities"; } @communication: @offer.Communications.Count</p>
-                                <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Activity</a>
-                                <hr />
-                                <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
-                                <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
-                                <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Contact</a>
+                            <div style="display: inline-flex;">
+                                <div>
+                                    <a asp-controller="Communication" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
+                                    <p>@{ var communication = offer.Communications.Count < 2 ? "Activity" : "Activities"; } @communication: @offer.Communications.Count</p>
+                                    <a asp-controller="Communication" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Activity</a>
+                                </div>
+                                <hr style="width: 1px; height: 60px; display: inline-block; margin-left: 10px; margin-right: 10px;">
+                                <div>
+                                    <a asp-controller="Contact" asp-action="Index" asp-route-id="@offer.GuId" asp-route-title="@offer.OfferTitle">See All</a>
+                                    <p>@{ var contact = offer.Contacts.Count < 2 ? "Contact" : "Contacts"; } @contact: @offer.Contacts.Count</p>
+                                    <a asp-controller="Contact" asp-action="Create" asp-route-id="@offer.GuId" class="btn btn-premier">Add Contact</a>
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <div class="card-footer">
