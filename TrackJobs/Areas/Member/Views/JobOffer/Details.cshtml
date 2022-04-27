@@ -17,36 +17,45 @@
         <div class="col-md-4">
         <h5>General</h5>
             <dl class="col-lg-12">
+                @if(Model.RejectionFeedback != null)
+                {
                     <dt class = "col-sm-4">
-                        @Html.DisplayNameFor(model => model.Salary)
+                        Feedback
                     </dt>
                     <dd class = "col-sm-8">
-                        @Html.DisplayFor(model => model.Salary)
+                        @Model.RejectionFeedback
                     </dd>
-                    <dt class = "col-sm-4">
-                        @Html.DisplayNameFor(model => model.Source)
-                    </dt>
-                    <dd class = "col-sm-8">
-                        @Html.DisplayFor(model => model.Source.Name)
-                    </dd>
-                    <dt class = "col-sm-4">
-                        Link to Offer
-                    </dt>
-                    <dd class = "col-sm-8">
-                        <a href="@Html.DisplayFor(model => model.LinkToOffer)" target="_blank">@Html.DisplayFor(model => model.LinkToOffer)</a>
-                    </dd>
-                    <dt class = "col-sm-4">
-                        Sent Resume
-                    </dt>
-                    <dd class = "col-sm-8">
-                        @Html.DisplayFor(model => model.HasSentResume)
-                    </dd>
-                    <dt class = "col-sm-5">
-                        Sent Cover Letter
-                    </dt>
-                    <dd class = "col-sm-7">
-                        @Html.DisplayFor(model => model.HasSentCoverLetter)
-                    </dd>
+                }
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.Salary)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Salary)
+                </dd>
+                <dt class = "col-sm-4">
+                    @Html.DisplayNameFor(model => model.Source)
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.Source.Name)
+                </dd>
+                <dt class = "col-sm-4">
+                    Link to Offer
+                </dt>
+                <dd class = "col-sm-8">
+                    <a href="@Html.DisplayFor(model => model.LinkToOffer)" target="_blank">@Html.DisplayFor(model => model.LinkToOffer)</a>
+                </dd>
+                <dt class = "col-sm-4">
+                    Sent Resume
+                </dt>
+                <dd class = "col-sm-8">
+                    @Html.DisplayFor(model => model.HasSentResume)
+                </dd>
+                <dt class = "col-sm-5">
+                    Sent Cover Letter
+                </dt>
+                <dd class = "col-sm-7">
+                    @Html.DisplayFor(model => model.HasSentCoverLetter)
+                </dd>
 
 
             </dl>
