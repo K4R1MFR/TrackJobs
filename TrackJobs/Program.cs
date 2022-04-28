@@ -21,25 +21,25 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = "JwtBearer";
-    options.DefaultChallengeScheme = "JwtBearer";
-}).AddJwtBearer("JwtBearer", jwtBearerOptions =>
-{
-    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey)),
-        ValidateIssuer = false,
-        ValidIssuer = "https://trackjobs.azurewebsites.net",
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.FromMinutes(5)
-    };
-});
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = "JwtBearer";
+//    options.DefaultChallengeScheme = "JwtBearer";
+//}).AddJwtBearer("JwtBearer", jwtBearerOptions =>
+//{
+//    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey)),
+//        ValidateIssuer = false,
+//        ValidIssuer = "https://trackjobs.azurewebsites.net",
+//        ValidateAudience = false,
+//        ValidateLifetime = true,
+//        ClockSkew = TimeSpan.FromMinutes(5)
+//    };
+//});
 
-builder.Services.AddCors();
+//builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -70,12 +70,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(options => options
-            .WithOrigins(new[] {"http://localhost:3000", "http://localhost:7125" })
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials()
-);
+//app.UseCors(options => options
+//            .WithOrigins(new[] {"http://localhost:3000", "http://localhost:7125", "http://trackjobs.azurewebsites.net" })
+//            .AllowAnyHeader()
+//            .AllowAnyMethod()
+//            .AllowCredentials()
+//);
 
 app.MapControllerRoute(
     name: "MyArea",
