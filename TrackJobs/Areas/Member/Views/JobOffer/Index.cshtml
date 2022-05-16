@@ -10,6 +10,10 @@
     <a asp-action="Create">Create New Job Offer</a> | <a asp-controller="Home" asp-action="Index">Back to My Job Offers</a>
 </p>
 
+<h6>Total applied: @Model.Where(j => j.AppliedOn != null).Count()</h6>
+<h6>Active: @Model.Where(j => j.IsClosed == false).Where(j => j.IsRejected == false).Count() - Rejected: @Model.Where(j => j.IsRejected == true).Count()</h6>
+<h6>Applied in the last 7 days: @Model.Where(j =>j.AppliedOn > DateTime.Now.AddDays(-7)).Count()</h6>
+
 <hr/>
 
 <div style="text-align:right; margin-bottom: 10px;">
