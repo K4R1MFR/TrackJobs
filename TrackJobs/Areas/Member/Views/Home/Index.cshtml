@@ -39,7 +39,19 @@
             {
                 <div class="col-md-4">
                     <div class="card">
-                        <div class="card-header">
+                        @{
+                            var checkDate = "";
+                            if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-30))
+                            {
+                                checkDate = "overOneMonth";
+                            } 
+                            if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-44))
+                            {
+                                checkDate = "overOneMonthAndHalf";
+                            }
+                        }
+
+                        <div class="card-header" >
                             <h5>
                                 <a asp-controller="JobOffer" asp-action="ChangeFavorite" asp-route-id="@offer.GuId" style="text-decoration: none;">
                                   @{var favorite = offer.IsFavorite == true ? "bi-star-fill" : "bi-star"; }<i class="bi @favorite text-warning"></i>
@@ -80,7 +92,7 @@
                             </div>
                             </div>
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer @checkDate">
                             source: @offer.Source.Name
                             <div>
                                 @{
