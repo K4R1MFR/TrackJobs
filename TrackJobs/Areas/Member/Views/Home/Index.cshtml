@@ -64,7 +64,7 @@
                         </div>
                         
                         <div id="@offer.GuId" class="card-body">
-                            <div class="card-title"><strong>@offer.OfferTitle</strong></div>
+                            <div class="card-title"><a href=@offer.LinkToOffer target="_blank"><strong>@offer.OfferTitle</strong></a></div>
                             <div style="display: flex-wrap;">
                                 <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-premier">Edit</a> |
                                 <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@offer.GuId" style="margin: 2px;" class="btn btn-premier">Details</a> |
