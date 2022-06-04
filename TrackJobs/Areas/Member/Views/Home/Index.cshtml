@@ -41,13 +41,16 @@
                     <div class="card">
                         @{
                             var checkDate = "";
-                            if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-30))
+                            if(offer.Communications.Count > 0)
                             {
-                                checkDate = "overOneMonth";
-                            } 
-                            if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-44))
-                            {
-                                checkDate = "overOneMonthAndHalf";
+                                if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-30))
+                                {
+                                    checkDate = "overOneMonth";
+                                } 
+                                if(offer.Communications[offer.Communications.Count - 1].Date < DateTime.Now.AddDays(-44))
+                                {
+                                    checkDate = "overOneMonthAndHalf";
+                                }
                             }
                         }
 

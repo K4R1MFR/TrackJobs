@@ -11,6 +11,9 @@
 </p>
 
 <h6>Total applied: @Model.Where(j => j.AppliedOn != null).Count()</h6>
+@if(@Model.Where(j => j.AppliedOn == null).Count() > 0) {
+    <h6>yet to apply: @Model.Where(j => j.AppliedOn == null).Count()</h6>
+}
 <h6>Active: @Model.Where(j => j.IsClosed == false).Where(j => j.IsRejected == false).Count() |
     Closed: @Model.Where(j => j.IsClosed == true).Count() |
     Rejected: @Model.Where(j => j.IsRejected == true).Count()</h6>

@@ -150,16 +150,16 @@
                 @{
                     if(User.IsInRole("Member"))
                     {
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-premier" style="margin-top: 10px;" />
-                        </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-premier" style="margin-top: 10px;" />
+                            </div>
                     }
                     if(User.IsInRole("Demo"))
                     {
-                        <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-premier" style="margin-top: 10px;" disabled/>
-                        </div>
-                        <span>(disabled for demo)</span>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn btn-premier" style="margin-top: 10px;" disabled/>
+                            </div>
+                            <span>(disabled for demo)</span>
                     }
                 }
             </div>
@@ -178,17 +178,20 @@
 }
 
 <script>
-function toggleAlreadyApplied() {
-    var check = document.getElementById("hasApplied").checked;
+    //window.onload = function() {
+    //    document.getElementById("AppliedOn").value = new Date().toISOString().slice(0, 10);
+    //}
 
-    document.getElementById("AppliedOn").style.display = check === true ? "block" : "none";
-    //disables DateTime AppliedOn input if checkbox isn't checked
-    check === true ? 
-    document.getElementById("AppliedOnInput").disabled = false : 
-    document.getElementById("AppliedOnInput").disabled = true;
+    function toggleAlreadyApplied() {
+        var check = document.getElementById("hasApplied").checked;
 
-    document.getElementById("HasSentResumne").style.display = check === true ? "block" : "none";
-    document.getElementById("HasSentCoverLetter").style.display = check === true ? "block" : "none";
+        document.getElementById("AppliedOn").style.display = check === true ? "block" : "none";
+        //disables DateTime AppliedOn input if checkbox isn't checked
+        check === true ? 
+        document.getElementById("AppliedOnInput").disabled = false : 
+        document.getElementById("AppliedOnInput").disabled = true;
 
-}
+        document.getElementById("HasSentResumne").style.display = check === true ? "block" : "none";
+        document.getElementById("HasSentCoverLetter").style.display = check === true ? "block" : "none";
+    }
 </script>
