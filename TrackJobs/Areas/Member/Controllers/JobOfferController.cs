@@ -212,13 +212,13 @@ namespace TrackJobs.Areas.Member.Controllers
                 return NotFound();
             }
 
-            var jobOffer = await _context.JobOffers.FindAsync(id);
+            var jobOffer = await _context.JobOffers.Include(j => j.Communications).Where(j => j.GuId == id).FirstOrDefaultAsync();
             if (jobOffer == null)
             {
                 return NotFound();
             }
 
-            //prevent user to edit joboffer if it is closed or rejected
+            //prevents user to edit joboffer if it is closed or rejected
             if(jobOffer.IsRejected == true || jobOffer.IsClosed == true)
             {
                 return RedirectToAction("Index", "Home");
@@ -246,9 +246,8 @@ namespace TrackJobs.Areas.Member.Controllers
                 StreetName = jobOffer.StreetName,
                 City = jobOffer.City,
                 Postcode = jobOffer.Postcode,
-                State = jobOffer.State
-
-
+                State = jobOffer.State,
+                CommunicationCount = jobOffer.Communications.Count
             };
 
             ViewData["SourceId"] = new SelectList(_context.Sources, "Id", "Name", jobOffer.SourceId);
@@ -260,7 +259,7 @@ namespace TrackJobs.Areas.Member.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("GuId, UserId, AppliedOn, CompanyName, OfferTitle, Description, SourceId, LinkToOffer, " +
+        public async Task<IActionResult> Edit(Guid id, [Bind("GuId, UserId, CommunicationCount, AppliedOn, CompanyName, OfferTitle, Description, SourceId, LinkToOffer, " +
             "HasSentResume, HasSentCoverLetter, Salary, IsWFHAvailable, IsFavorite, Perks, " +
             "Pros, Cons, StreetNumber, StreetName, City, Postcode, State")] Models.JobOffer.Edit m)
         {
@@ -300,6 +299,19 @@ namespace TrackJobs.Areas.Member.Controllers
                     };
 
                     _context.Update(editedJobOffer);
+
+                    if(m.CommunicationCount == 0 && editedJobOffer.AppliedOn != null)
+                    {
+                        var creation = new Communication
+                        {
+                            JobOfferId = editedJobOffer.GuId,
+                            Date = editedJobOffer.AppliedOn.Value,
+                            CommunicationType = "Job Offer",
+                            Title = "Created"
+                        };
+                        _context.Add(creation);
+
+                    }
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

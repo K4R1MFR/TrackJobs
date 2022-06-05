@@ -25,7 +25,7 @@
         public bool IsFavorite { get; set; }
         public DateTime? InterviewDate { get; set; }
         public bool HasInterviewed { get; set; }
-
+        public int CommunicationCount { get; set; }
 
     }
 }
