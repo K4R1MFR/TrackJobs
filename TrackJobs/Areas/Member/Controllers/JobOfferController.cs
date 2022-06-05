@@ -185,6 +185,17 @@ namespace TrackJobs.Areas.Member.Controllers
                 };
 
                 _context.Add(jobOffer);
+                if(jobOffer.AppliedOn != null)
+                {
+                    var creation = new Communication
+                    {
+                        JobOfferId = jobOffer.GuId,
+                        Date = jobOffer.AppliedOn.Value,
+                        CommunicationType = "Job Offer",
+                        Title = "Created"
+                    };
+                    _context.Add(creation);
+                }
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index", "Home");
