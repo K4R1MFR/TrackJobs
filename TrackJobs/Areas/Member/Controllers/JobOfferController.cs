@@ -85,10 +85,22 @@ namespace TrackJobs.Areas.Member.Controllers
                 .ToListAsync();
 
             var builder = new StringBuilder();
-            builder.AppendLine("Applied On, Company, Job Title, Source, Link to Offer");
+            builder.AppendLine("Applied On, Status, Company, Job Title, Source, Link to Offer");
             foreach(var job in jobOffers)
             {
-                builder.AppendLine($"{job.AppliedOn}, {job.CompanyName.Replace(',', ' ')}, {job.OfferTitle.Replace(',', ' ')}, {job.Source.Name}, {job.LinkToOffer}");
+                string status = "";
+                if(job.AppliedOn != null && job.IsClosed == false && job.IsRejected == false)
+                {
+                    status = "Active";
+                } else if(job.IsClosed == true)
+                {
+                    status = "Closed";
+                } else if(job.IsRejected == true)
+                {
+                    status = "Rejected";
+                }
+
+                builder.AppendLine($"{job.AppliedOn}, {status}, {job.CompanyName.Replace(',', ' ')}, {job.OfferTitle.Replace(',', ' ')}, {job.Source.Name}, {job.LinkToOffer}");
             }
 
             return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", $"{User.Identity.Name}_TrackJobs_{DateTime.Now.ToShortDateString()}.csv");
