@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -68,6 +69,31 @@ namespace TrackJobs.Areas.Member.Controllers
             return View(jobOffers);
         }
 
+        public async Task<IActionResult> ExportToCSV()
+        {
+            var userId = _userManager.GetUserId(User);
+            if (userId is null)
+            {
+                return NotFound();
+            }
+
+            var jobOffers = await _context.JobOffers
+                .Include(j => j.Source)
+                .Where(j => j.UserId == userId)
+                .Where(j => j.IsSoftDeleted == false)
+                .OrderByDescending(j => j.AppliedOn)
+                .ToListAsync();
+
+            var builder = new StringBuilder();
+            builder.AppendLine("Applied On, Company, Job Title, Source, Link to Offer");
+            foreach(var job in jobOffers)
+            {
+                builder.AppendLine($"{job.AppliedOn}, {job.CompanyName.Replace(',', ' ')}, {job.OfferTitle.Replace(',', ' ')}, {job.Source.Name}, {job.LinkToOffer}");
+            }
+
+            return File(Encoding.UTF8.GetBytes(builder.ToString()), "text/csv", $"{User.Identity.Name}_TrackJobs_{DateTime.Now.ToShortDateString()}.csv");
+        }
+
         // GET: JobOffer/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -104,7 +130,7 @@ namespace TrackJobs.Areas.Member.Controllers
             var m = new Models.JobOffer.Create
             {
                 UserId = userId,
-                AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
+                //AppliedOn = DateTime.Parse(DateTime.Now.ToString("f"))
             };
 
             ViewData["SourceId"] = new SelectList(_context.Sources, "Id", "Name");

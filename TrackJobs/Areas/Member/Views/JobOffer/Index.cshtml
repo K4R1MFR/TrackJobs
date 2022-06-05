@@ -18,7 +18,7 @@
     Closed: @Model.Where(j => j.IsClosed == true).Count() |
     Rejected: @Model.Where(j => j.IsRejected == true).Count()</h6>
 <h6>Applied in the last 7 days: @Model.Where(j =>j.AppliedOn > DateTime.Now.AddDays(-7)).Count()</h6>
-
+    <a asp-controller="JobOffer" asp-action="ExportToCSV" class="btn btn-premier" >Export to CSV</a>
 <hr/>
 
 <div style="text-align:right; margin-bottom: 10px;">
